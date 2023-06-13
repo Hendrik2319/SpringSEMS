@@ -19,6 +19,21 @@ public class Department {
 	@ManyToOne
 	private Address address;
 
+	protected Department() {}
+
+	public Department(String name, Address address) {
+		this.name = name;
+		this.address = address;
+	}
+
+	@Override
+	public String toString() {
+		return String.format(
+            "Department[ id=%d, name=\"%s\", address=%s ]",
+			id, name, address
+		);
+	}
+
 	public void setName   (String  name   ) { this.name    = name;    }
     public void setAddress(Address address) { this.address = address; }
     public String  getName   () { return name ;     }
