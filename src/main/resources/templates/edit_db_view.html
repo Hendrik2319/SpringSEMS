@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>SEMS: Edit Database</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/stylesheets/general.css">
+	<link rel="stylesheet" href="/stylesheets/table.css">
+    <style type="text/css">
+		form {
+			margin-bottom: 20px;
+            width: max-content;
+		}
+        label[form] {
+            font-weight: bold;
+        }
+        .Table {
+            display: none;
+        }
+        .Table.Selected {
+            display: block;
+        }
+        .TableButton {
+            display: inline-block;
+            border: 1px solid #bbb;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            padding: 5px 10px;
+            background: #f7f7f7;
+        }
+        .TableButton.Selected {
+            background: #e4f4ff;
+        }
+
+    </style>
+	<script type="text/javascript" charset="utf-8">
+        function createTableButtons( containerId ) {
+            let container = document.getElementById(containerId);
+            if (!container) return;
+
+            function setElement( element, isSelected ) {
+                if (isSelected)
+                    element.classList.add('Selected');
+                else
+                    element.classList.remove('Selected');
+            }
+
+            function showSelection( elements, isSelected ) {
+                if (elements) {
+                    setElement( elements.table , isSelected );
+                    setElement( elements.button, isSelected );
+                }
+            }
+
+            let selected = null;
+
+            function add( tableId, label, isSelected ) {
+                let table = document.getElementById(tableId);
+                if (!table) return;
+
+                let button = container.appendChild(document.createElement('span'));
+                button.className = 'TableButton'
+                button.textContent = label;
+                
+                button.addEventListener('click', ()=>{
+                    showSelection( selected, false );
+                    selected = { table, button };
+                    showSelection( selected, true );
+                });
+
+                if (isSelected) {
+                    selected = { table, button };
+                    showSelection( selected, true );
+                }
+            }
+
+            return {
+                add,
+            };
+        }
+
+		function addTableButtons() {
+            let buttons = createTableButtons( 'table_buttons' );
+            if (!buttons) return;
+            buttons.add('all_addresses_table'  , 'Addresses', true );
+            buttons.add('all_departments_table', 'Addresses', false);
+            buttons.add('all_employees_table'  , 'Addresses', false);
+        }
+	</script>
+</head>
+<body onload="addTableButtons('table_buttons', ['all_addresses_table', 'all_departments_table', 'all_employees_table'], '');">
+    <form id="add_address" action="/add_address" target="_blank" class="graybox">
+        <label form="add_address">add address:</label><br/>
+        <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
+        <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
+        <label>town   :<input type="text" name="town"    maxlength="40"></label><br/>
+        <label>zipcode:<input type="text" name="zipcode" maxlength="40"></label><br/>
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+    <!--
+    <form id="add_department" action="/add_department" target="_blank" class="graybox">
+        <label form="add_department">add department:</label><br/>
+        <label>name:<input type="text" name="street"  maxlength="40"></label><br/>
+        <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
+        <label>town   :<input type="text" name="town"    maxlength="40"></label><br/>
+        <label>zipcode:<input type="text" name="zipcode" maxlength="40"></label><br/>
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+    -->
+    <div>
+        <div id="table_buttons"></div>
+        <div id="all_addresses_table"   class="Table" th:insert="~{all_addresses :: table}"></div>
+        <div id="all_departments_table" class="Table" th:insert="~{all_departments :: table}"></div>
+        <div id="all_employees_table"   class="Table" th:insert="~{all_employees :: table}"></div>
+    </div>
+</body>
+</html>

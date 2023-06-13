@@ -3,7 +3,7 @@
 <head>
     <title>SEMS - Simple Employee Management System</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<link rel="stylesheet" href="general.css">
+	<link rel="stylesheet" href="/stylesheets/general.css">
     <style type="text/css">
 
 		#links, form {
@@ -28,9 +28,10 @@
         <a href="/rest/departments" target="_blank">/rest/departments/1</a><br/>
         <a href="/rest/departments/1" target="_blank">/rest/departments/1</a><br/>
         <br/>
-        <a href="/all_addresses"   target="_blank">/all_addresses</a><br/>
-        <a href="/all_departments" target="_blank">/all_departments</a><br/>
-        <a href="/all_employees"   target="_blank">/all_employees</a><br/>
+        <a href="/all_addresses"       target="_blank">/all_addresses</a><br/>
+        <a href="/all_departments"     target="_blank">/all_departments</a><br/>
+        <a href="/all_employees"       target="_blank">/all_employees</a><br/>
+        <a href="/edit"                target="_blank">Edit Database View</a><br/>
     </div>
     <form id="greeting" action="/greeting" target="_blank" class="graybox">
         <label form="greeting">Greeting</label><br/>
@@ -41,15 +42,6 @@
     <form id="rest_demo" action="/demo/hello" target="_blank" class="graybox">
         <label form="rest_demo">REST Demo</label><br/>
         <label >name:<input type="text" name="name" maxlength="40"></label>
-        <button type="reset">reset</button>
-        <button type="submit">submit</button>
-    </form>
-    <form id="add_address" action="/add_address" target="_blank" class="graybox">
-        <label form="add_address">add address:</label><br/>
-        <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
-        <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
-        <label>town   :<input type="text" name="town"    maxlength="40"></label><br/>
-        <label>zipcode:<input type="text" name="zipcode" maxlength="40"></label><br/>
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
