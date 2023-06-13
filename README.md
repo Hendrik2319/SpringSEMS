@@ -2,6 +2,11 @@
 
 I've started this project of a simple employee managment system to learn the Spring framework and its features.
 
+## Prerequisites
+
+* a free database on a MySQL server
+* a Java VM (Version 17)
+
 ## Installation
 
 1. Download `JAR` file
