@@ -25,6 +25,15 @@ public class Employee {
     @ManyToOne
     private Department department;
 
+    public Employee() {}
+
+    public Employee(String forename, String surname, Address address, Department department) {
+        this.forename = forename;
+        this.surname = surname;
+        this.address = address;
+        this.department = department;
+    }
+
     public void setForename  (String     forename  ) { this.forename   = forename;   }
     public void setSurname   (String     surname   ) { this.surname    = surname;    }
     public void setAddress   (Address    address   ) { this.address    = address;    }

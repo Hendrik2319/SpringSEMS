@@ -11,6 +11,7 @@ import net.schwarzbaer.java.spring.sems.address.Address;
 import net.schwarzbaer.java.spring.sems.address.AddressRepo;
 import net.schwarzbaer.java.spring.sems.department.Department;
 import net.schwarzbaer.java.spring.sems.department.DepartmentRepo;
+import net.schwarzbaer.java.spring.sems.employee.Employee;
 import net.schwarzbaer.java.spring.sems.employee.EmployeeRepo;
 
 @Controller
@@ -81,9 +82,21 @@ public class UserInterface {
 		@RequestParam(name="name"   , required=true , defaultValue="New Department") String  name,
 		@RequestParam(name="addr_id", required=false, defaultValue="-1"            ) Integer addrID
 	) {
-		addressRepo.findById(addrID).ifPresent(address -> {
-			departmentRepo.save(new Department(name, address));
-		});
+		Address address = addressRepo.findById(addrID).orElse(null);
+		departmentRepo.save(new Department(name, address));
+		return "redirect:/edit";
+	}
+
+	@GetMapping("/add_employee")
+	public String addEmployee(
+		@RequestParam(name="forename", required=true, defaultValue="<forename>") String  forename,
+		@RequestParam(name="surname" , required=true, defaultValue="<surname>" ) String  surname,
+		@RequestParam(name="addr_id" , required=false, defaultValue="-1"       ) Integer addrID,
+		@RequestParam(name="dep_id"  , required=false, defaultValue="-1"       ) Integer depID
+	) {
+		Address    address    =    addressRepo.findById(addrID).orElse(null);
+		Department department = departmentRepo.findById(depID ).orElse(null);
+		employeeRepo.save(new Employee(forename, surname, address, department));
 		return "redirect:/edit";
 	}
 }

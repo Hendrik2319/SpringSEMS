@@ -100,18 +100,33 @@
     
     <form id="add_department" action="/add_department" class="graybox">
         <label form="add_department">add department:</label><br/>
-        <label>
-            name:
-            <input type="text" name="name"  maxlength="40">
-        </label>
-        <br/>
-        <label>
-            address:
+        <label>name :<input type="text" name="name"></label><br/>
+        <label>address :
             <select name="addr_id">
                 <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
             </select>
         </label>
         <br/>
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+    
+    <form id="add_employee" action="/add_employee" class="graybox">
+        <label form="add_employee">add employee:</label><br/>
+        <label>forename :<input type="text" name="forename"></label><br/>
+        <label>surname  :<input type="text" name="surname" ></label><br/>
+        <label>
+            home address:
+            <select name="addr_id">
+                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
+            </select>
+        </label><br/>
+        <label>
+            department:
+            <select name="dep_id">
+                <option th:each="dep : ${allDepartments}" th:value="${dep.getID()}" th:text="${dep.toLabel()}"></option>
+            </select>
+        </label><br/>
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
