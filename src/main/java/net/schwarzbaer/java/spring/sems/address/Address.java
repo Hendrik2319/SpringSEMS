@@ -10,12 +10,12 @@ public class Address {
     
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer id;
+	public Integer id;
 
-	private String  street;
-    private Integer housenumber;
-    private String  town;
-    private Integer zipcode;
+	public String  street;
+    public Integer housenumber;
+    public String  town;
+    public Integer zipcode;
 
     protected Address() {}
 
