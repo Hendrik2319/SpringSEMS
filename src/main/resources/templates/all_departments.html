@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>SEMS: All Adressses</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="general.css">
+	<link rel="stylesheet" href="table.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID         </th>
+                <th>name       </th>
+                <th>addr.ID    </th>
+                <th>street     </th>
+                <th>housenumber</th>
+                <th>town       </th>
+                <th>zipcode    </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="dep : ${allDepartments}">
+                <td th:text="${dep.getID()  }">[id          ]</td>
+                <td th:text="${dep.getName()}">[name        ]</td>
+                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getID()         } : '--'">[addr.id     ]</td>
+                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getStreet()     } : '--'">[street      ]</td>
+                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getHousenumber()} : '--'">[housenumber ]</td>
+                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getTown()       } : '--'">[town        ]</td>
+                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getZipcode()    } : '--'">[zipcode     ]</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

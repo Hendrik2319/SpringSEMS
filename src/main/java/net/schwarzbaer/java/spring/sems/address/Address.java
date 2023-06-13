@@ -10,12 +10,12 @@ public class Address {
     
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Integer id;
+	private Integer id;
 
-	public String  street;
-    public Integer housenumber;
-    public String  town;
-    public Integer zipcode;
+	private String  street;
+    private Integer housenumber;
+    private String  town;
+    private Integer zipcode;
 
     protected Address() {}
 
@@ -38,7 +38,8 @@ public class Address {
     public void setHousenumber (Integer housenumber) { this.housenumber = housenumber; }
     public void setTown        (String  town       ) { this.town        = town;        }
     public void setZipcode     (Integer zipcode    ) { this.zipcode     = zipcode;     }
-    public String  getStreet     () { return street ;     }
+    public Integer getID         () { return id;          }
+    public String  getStreet     () { return street;      }
     public Integer getHousenumber() { return housenumber; }
     public String  getTown       () { return town;        }
 	public Integer getZipcode    () { return zipcode;     }

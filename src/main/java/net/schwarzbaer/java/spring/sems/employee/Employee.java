@@ -29,9 +29,12 @@ public class Employee {
     public void setSurname   (String     surname   ) { this.surname    = surname;    }
     public void setAddress   (Address    address   ) { this.address    = address;    }
     public void setDepartment(Department department) { this.department = department; }
+    public Integer    getID        () { return id;          }
     public String     getForename  () { return forename;   }
     public String     getSurname   () { return surname;    }
     public Address    getAddress   () { return address;    }
 	public Department getDepartment() { return department; }
+	public boolean    hasAddress   () { return address   !=null; }
+	public boolean    hasDepartment() { return department!=null; }
     
 }

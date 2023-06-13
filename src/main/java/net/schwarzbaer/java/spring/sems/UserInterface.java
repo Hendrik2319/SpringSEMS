@@ -12,6 +12,7 @@ import net.schwarzbaer.java.spring.sems.address.Address;
 import net.schwarzbaer.java.spring.sems.address.AddressRepo;
 import net.schwarzbaer.java.spring.sems.department.Department;
 import net.schwarzbaer.java.spring.sems.department.DepartmentRepo;
+import net.schwarzbaer.java.spring.sems.employee.Employee;
 import net.schwarzbaer.java.spring.sems.employee.EmployeeRepo;
 
 @Controller
@@ -55,9 +56,29 @@ public class UserInterface {
 	public Iterable<Address> getAllAddresses() {
 		return addressRepo.findAll();
 	}
+
+	@ModelAttribute("allDepartments")
+	public Iterable<Department> getAllDepartments() {
+		return departmentRepo.findAll();
+	}
+
+	@ModelAttribute("allEmployees")
+	public Iterable<Employee> getAllEmployees() {
+		return employeeRepo.findAll();
+	}
     
 	@GetMapping("/all_addresses")
 	public String showAllAddresses(Model model) {
 		return "all_addresses";
+	}
+    
+	@GetMapping("/all_departments")
+	public String showAllDepartments(Model model) {
+		return "all_departments";
+	}
+    
+	@GetMapping("/all_employees")
+	public String showAllEmployees(Model model) {
+		return "all_employees";
 	}
 }
