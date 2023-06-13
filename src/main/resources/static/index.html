@@ -1,27 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>REST & Spring MVC</title>
+    <title>SEMS - Simple Employee Management System</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <style type="text/css" media="screen">
-		
+		body {
+            font-family: sans-serif;
+            font-size: 13px;
+        }
+
+		#links, form {
+			border: 1px solid gray;
+			border-radius: 5px;
+			padding: 5px;
+			background: #f7f7f7;
+			margin-bottom: 20px;
+            width: max-content;
+		}
+
+        label[form] {
+            font-weight: bold;
+        }
+
 	</style>
 </head>
 <body>
-        <form id="greeting" action="/greeting" target="_blank">
-            <label form="greeting">Greeting</label><br/>
-            <label for="greetings_name">Name:</label>
-            <input type="text" name="name" id="greetings_name" maxlength="40">
-            <button type="reset">Eingaben zurücksetzen</button>
-            <button type="submit">Eingaben absenden</button>
-        </form>
-        <br/>
-        <form id="rest_demo" action="/demo/hello" target="_blank">
-            <label form="rest_demo">REST Demo</label><br/>
-            <label for="rest_demo_name">Name:</label>
-            <input type="text" name="name" id="rest_demo_name" maxlength="40">
-            <button type="reset">Eingaben zurücksetzen</button>
-            <button type="submit">Eingaben absenden</button>
-        </form>
+    <div id="links">
+        Interesting Links:<br/>
+        <a href="/rest" target="_blank">/rest</a><br/>
+        <a href="/rest/addresses" target="_blank">/rest/addresses</a><br/>
+        <a href="/rest/addresses/1" target="_blank">/rest/addresses/1</a><br/>
+        <a href="/rest/employees" target="_blank">/rest/employees</a><br/>
+        <a href="/rest/employees/1" target="_blank">/rest/employees/1</a><br/>
+        <a href="/rest/departments" target="_blank">/rest/departments/1</a><br/>
+        <a href="/rest/departments/1" target="_blank">/rest/departments/1</a><br/>
+    </div>
+    <form id="greeting" action="/greeting" target="_blank">
+        <label form="greeting">Greeting</label><br/>
+        <label for="greetings_name">Name:</label>
+        <input type="text" name="name" id="greetings_name" maxlength="40">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+    <form id="rest_demo" action="/demo/hello" target="_blank">
+        <label form="rest_demo">REST Demo</label><br/>
+        <label for="rest_demo_name">Name:</label>
+        <input type="text" name="name" id="rest_demo_name" maxlength="40">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
 </body>
 </html>

@@ -13,8 +13,8 @@ public class Address {
 	private Integer id;
 
 	private String  street;
-    private String  town;
     private Integer housenumber;
+    private String  town;
     private Integer zipcode;
 
     public void setStreet      (String  street     ) { this.street      = street;      }

@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import net.schwarzbaer.java.spring.sems.address.Address;
 
 @Entity
 public class Department {
@@ -13,11 +15,13 @@ public class Department {
 	private Integer id;
 
 	private String  name;
-    private Integer addressID;
+    
+	@ManyToOne
+	private Address address;
 
-	public void setName     (String  name     ) { this.name      = name;      }
-    public void setAddressID(Integer addressID) { this.addressID = addressID; }
-    public String  getName     () { return name ;     }
-    public Integer getAddressID() { return addressID; }
+	public void setName   (String  name   ) { this.name    = name;    }
+    public void setAddress(Address address) { this.address = address; }
+    public String  getName   () { return name ;     }
+    public Address getAddress() { return address; }
     
 }
