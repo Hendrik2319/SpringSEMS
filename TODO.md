@@ -6,7 +6,8 @@
 * move REST api in subpath (e.q. "api" or "rest")
 -> **solved**
 
-* define relationships (entity relationship model)  
+* define relationships (entity relationship model)
+-> **solved** (at simple level yet)
 
 * get CoPilot
 
