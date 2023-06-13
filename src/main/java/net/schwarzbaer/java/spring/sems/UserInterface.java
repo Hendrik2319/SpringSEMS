@@ -51,34 +51,22 @@ public class UserInterface {
 		departmentRepo.save(department);
 		return department.toString();
 	}
-
-	@ModelAttribute("allAddresses")
-	public Iterable<Address> getAllAddresses() {
-		return addressRepo.findAll();
-	}
-
-	@ModelAttribute("allDepartments")
-	public Iterable<Department> getAllDepartments() {
-		return departmentRepo.findAll();
-	}
-
-	@ModelAttribute("allEmployees")
-	public Iterable<Employee> getAllEmployees() {
-		return employeeRepo.findAll();
-	}
-    
+	
 	@GetMapping("/all_addresses")
 	public String showAllAddresses(Model model) {
+		model.addAttribute("allAddresses", addressRepo.findAll());
 		return "all_addresses";
 	}
     
 	@GetMapping("/all_departments")
 	public String showAllDepartments(Model model) {
+		model.addAttribute("allDepartments", departmentRepo.findAll());
 		return "all_departments";
 	}
     
 	@GetMapping("/all_employees")
 	public String showAllEmployees(Model model) {
+		model.addAttribute("allEmployees", employeeRepo.findAll());
 		return "all_employees";
 	}
 }

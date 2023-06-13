@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>SEMS: All Adressses</title> 
+    <title>SEMS: All Departments</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="general.css">
 	<link rel="stylesheet" href="table.css">
@@ -22,14 +22,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="dep : ${allDepartments}">
+            <tr th:each="dep : ${allDepartments}"
+                th:with="depAddr = ${dep.getAddress()}">
                 <td th:text="${dep.getID()  }">[id          ]</td>
                 <td th:text="${dep.getName()}">[name        ]</td>
-                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getID()         } : '--'">[addr.id     ]</td>
-                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getStreet()     } : '--'">[street      ]</td>
-                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getHousenumber()} : '--'">[housenumber ]</td>
-                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getTown()       } : '--'">[town        ]</td>
-                <td th:text="${dep.hasAddress()} ? ${dep.getAddress().getZipcode()    } : '--'">[zipcode     ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getID()         } : '--'">[addr.id     ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getStreet()     } : '--'">[street      ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getHousenumber()} : '--'">[housenumber ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getTown()       } : '--'">[town        ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getZipcode()    } : '--'">[zipcode     ]</td>
             </tr>
         </tbody>
     </table>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-    <title>SEMS: All Adressses</title> 
+    <title>SEMS: All Employees</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="general.css">
 	<link rel="stylesheet" href="table.css">
@@ -30,22 +30,27 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="emp : ${allEmployees}">
+            <tr th:each="emp : ${allEmployees}"
+                th:with="
+                    empAddr = ${emp.getAddress()},
+                    dep     = ${emp.getDepartment()},
+                    depAddr = ${dep != null} ? ${dep.getAddress()} : null
+                ">
                 <td th:text="${emp.getID()      }">[id          ]</td>
                 <td th:text="${emp.getForename()}">[forename    ]</td>
                 <td th:text="${emp.getSurname ()}">[surname     ]</td>
-                <td th:text="${emp.hasAddress()   } ? ${emp.getAddress().getID()         } : '--'">[addr.id     ]</td>
-                <td th:text="${emp.hasAddress()   } ? ${emp.getAddress().getStreet()     } : '--'">[street      ]</td>
-                <td th:text="${emp.hasAddress()   } ? ${emp.getAddress().getHousenumber()} : '--'">[housenumber ]</td>
-                <td th:text="${emp.hasAddress()   } ? ${emp.getAddress().getTown()       } : '--'">[town        ]</td>
-                <td th:text="${emp.hasAddress()   } ? ${emp.getAddress().getZipcode()    } : '--'">[zipcode     ]</td>
-                <td th:text="${emp.hasDepartment()} ? ${emp.getDepartment().getID()      } : '--'">[dep.id      ]</td>
-                <td th:text="${emp.hasDepartment()} ? ${emp.getDepartment().getName()    } : '--'">[department  ]</td>
-                <td th:text="${emp.hasDepartment() && emp.getDepartment().hasAddress()} ? ${emp.getDepartment().getAddress().getID()         } : '--'">[dep.addr.id     ]</td>
-                <td th:text="${emp.hasDepartment() && emp.getDepartment().hasAddress()} ? ${emp.getDepartment().getAddress().getStreet()     } : '--'">[dep.street      ]</td>
-                <td th:text="${emp.hasDepartment() && emp.getDepartment().hasAddress()} ? ${emp.getDepartment().getAddress().getHousenumber()} : '--'">[dep.housenumber ]</td>
-                <td th:text="${emp.hasDepartment() && emp.getDepartment().hasAddress()} ? ${emp.getDepartment().getAddress().getTown()       } : '--'">[dep.town        ]</td>
-                <td th:text="${emp.hasDepartment() && emp.getDepartment().hasAddress()} ? ${emp.getDepartment().getAddress().getZipcode()    } : '--'">[dep.zipcode     ]</td>
+                <td th:text="${empAddr!=null} ? ${empAddr.getID()         } : '--'">[addr.id         ]</td>
+                <td th:text="${empAddr!=null} ? ${empAddr.getStreet()     } : '--'">[street          ]</td>
+                <td th:text="${empAddr!=null} ? ${empAddr.getHousenumber()} : '--'">[housenumber     ]</td>
+                <td th:text="${empAddr!=null} ? ${empAddr.getTown()       } : '--'">[town            ]</td>
+                <td th:text="${empAddr!=null} ? ${empAddr.getZipcode()    } : '--'">[zipcode         ]</td>
+                <td th:text="${dep    !=null} ? ${dep    .getID()         } : '--'">[dep.id          ]</td>
+                <td th:text="${dep    !=null} ? ${dep    .getName()       } : '--'">[department      ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getID()         } : '--'">[dep.addr.id     ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getStreet()     } : '--'">[dep.street      ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getHousenumber()} : '--'">[dep.housenumber ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getTown()       } : '--'">[dep.town        ]</td>
+                <td th:text="${depAddr!=null} ? ${depAddr.getZipcode()    } : '--'">[dep.zipcode     ]</td>
             </tr>
         </tbody>
     </table>
