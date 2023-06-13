@@ -60,7 +60,7 @@
                 let button = container.appendChild(document.createElement('span'));
                 button.className = 'TableButton'
                 button.textContent = label;
-                
+
                 button.addEventListener('click', ()=>{
                     showSelection( selected, false );
                     selected = { table, button };
@@ -81,14 +81,14 @@
 		function addTableButtons() {
             let buttons = createTableButtons( 'table_buttons' );
             if (!buttons) return;
-            buttons.add('all_addresses_table'  , 'Addresses', true );
-            buttons.add('all_departments_table', 'Addresses', false);
-            buttons.add('all_employees_table'  , 'Addresses', false);
+            buttons.add('all_employees_table'  , 'Employees'  , false);
+            buttons.add('all_departments_table', 'Departments', false);
+            buttons.add('all_addresses_table'  , 'Addresses'  , true );
         }
 	</script>
 </head>
-<body onload="addTableButtons('table_buttons', ['all_addresses_table', 'all_departments_table', 'all_employees_table'], '');">
-    <form id="add_address" action="/add_address" target="_blank" class="graybox">
+<body onload="addTableButtons();">
+    <form id="add_address" action="/add_address" class="graybox">
         <label form="add_address">add address:</label><br/>
         <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
         <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
@@ -97,17 +97,25 @@
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
-    <!--
-    <form id="add_department" action="/add_department" target="_blank" class="graybox">
+    
+    <form id="add_department" action="/add_department" class="graybox">
         <label form="add_department">add department:</label><br/>
-        <label>name:<input type="text" name="street"  maxlength="40"></label><br/>
-        <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
-        <label>town   :<input type="text" name="town"    maxlength="40"></label><br/>
-        <label>zipcode:<input type="text" name="zipcode" maxlength="40"></label><br/>
+        <label>
+            name:
+            <input type="text" name="name"  maxlength="40">
+        </label>
+        <br/>
+        <label>
+            address:
+            <select name="addr_id">
+                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
+            </select>
+        </label>
+        <br/>
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
-    -->
+   
     <div>
         <div id="table_buttons"></div>
         <div id="all_addresses_table"   class="Table" th:insert="~{all_addresses :: table}"></div>

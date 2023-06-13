@@ -34,6 +34,13 @@ public class Address {
         );
     }
 
+    public String toLabel() {
+        return String.format(
+            "%s %d, %d %s",
+            street, housenumber, zipcode, town
+        );
+    }
+
     public void setStreet      (String  street     ) { this.street      = street;      }
     public void setHousenumber (Integer housenumber) { this.housenumber = housenumber; }
     public void setTown        (String  town       ) { this.town        = town;        }
