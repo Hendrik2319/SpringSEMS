@@ -24,18 +24,21 @@ public class UserInterface {
 	@GetMapping("/all_addresses")
 	public String showAllAddresses(Model model) {
 		model.addAttribute("allAddresses", addressRepo.findAll());
+		model.addAttribute("redirectTarget", "all_addresses");
 		return "all_addresses";
 	}
     
 	@GetMapping("/all_departments")
 	public String showAllDepartments(Model model) {
 		model.addAttribute("allDepartments", departmentRepo.findAll());
+		model.addAttribute("redirectTarget", "all_departments");
 		return "all_departments";
 	}
     
 	@GetMapping("/all_employees")
 	public String showAllEmployees(Model model) {
 		model.addAttribute("allEmployees", employeeRepo.findAll());
+		model.addAttribute("redirectTarget", "all_employees");
 		return "all_employees";
 	}
     
@@ -44,47 +47,52 @@ public class UserInterface {
 		model.addAttribute("allAddresses", addressRepo.findAll());
 		model.addAttribute("allEmployees", employeeRepo.findAll());
 		model.addAttribute("allDepartments", departmentRepo.findAll());
+		model.addAttribute("redirectTarget", "edit");
 		return "edit_db_view";
 	}
 
 	@PostMapping("/add_address")
 	public String addAddress(
-		@RequestParam(name="street" , required=true, defaultValue="unkown street") String  street,
-		@RequestParam(name="house"  , required=true, defaultValue="12"           ) Integer housenumber,
-		@RequestParam(name="town"   , required=true, defaultValue="unkown town"  ) String  town,
-		@RequestParam(name="zipcode", required=true, defaultValue="123"          ) Integer zipcode
+		@RequestParam(name="street"     , required=true , defaultValue="unkown street") String  street,
+		@RequestParam(name="house"      , required=true , defaultValue="12"           ) Integer housenumber,
+		@RequestParam(name="town"       , required=true , defaultValue="unkown town"  ) String  town,
+		@RequestParam(name="zipcode"    , required=true , defaultValue="123"          ) Integer zipcode,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit"         ) String  redirectTarget
 	) {
 		Address address = new Address(street,housenumber,town,zipcode);
 		addressRepo.save(address);
-		return "redirect:/edit";
+		return "redirect:/"+redirectTarget;
 	}
 
 	@PostMapping("/add_department")
 	public String addDepartment(
-		@RequestParam(name="name"   , required=true , defaultValue="New Department") String  name,
-		@RequestParam(name="addr_id", required=false, defaultValue="-1"            ) Integer addrID
+		@RequestParam(name="name"       , required=true , defaultValue="New Department") String  name,
+		@RequestParam(name="addr_id"    , required=false, defaultValue="-1"            ) Integer addrID,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit"          ) String  redirectTarget
 	) {
 		Address address = addressRepo.findById(addrID).orElse(null);
 		departmentRepo.save(new Department(name, address));
-		return "redirect:/edit";
+		return "redirect:/"+redirectTarget;
 	}
 
 	@PostMapping("/add_employee")
 	public String addEmployee(
-		@RequestParam(name="forename", required=true, defaultValue="<forename>") String  forename,
-		@RequestParam(name="surname" , required=true, defaultValue="<surname>" ) String  surname,
-		@RequestParam(name="addr_id" , required=false, defaultValue="-1"       ) Integer addrID,
-		@RequestParam(name="dep_id"  , required=false, defaultValue="-1"       ) Integer depID
+		@RequestParam(name="forename"   , required=true, defaultValue="<forename>") String  forename,
+		@RequestParam(name="surname"    , required=true, defaultValue="<surname>" ) String  surname,
+		@RequestParam(name="addr_id"    , required=false, defaultValue="-1"       ) Integer addrID,
+		@RequestParam(name="dep_id"     , required=false, defaultValue="-1"       ) Integer depID,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit"     ) String  redirectTarget
 	) {
 		Address    address    =    addressRepo.findById(addrID).orElse(null);
 		Department department = departmentRepo.findById(depID ).orElse(null);
 		employeeRepo.save(new Employee(forename, surname, address, department));
-		return "redirect:/edit";
+		return "redirect:/"+redirectTarget;
 	}
 
 	@PostMapping("/delete_address")
 	public String deleteAddress(
-		@RequestParam(name="id", required=true, defaultValue="-1") Integer id
+		@RequestParam(name="id"         , required=true , defaultValue="-1"  ) Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit") String  redirectTarget
 	) {
 		if (addressRepo.existsById(id)) {
 			int departmentsUsingCount = departmentRepo.countByAddressID(id);
@@ -94,20 +102,22 @@ public class UserInterface {
 			if (departmentsUsingCount==0 && employeesUsingCount==0)
 				addressRepo.deleteById(id);
 		}
-		return "redirect:/edit";
+		return "redirect:/"+redirectTarget;
 	}
 
 	@PostMapping("/delete_employee")
 	public String deleteEmployee(
-		@RequestParam(name="id", required=true, defaultValue="-1") Integer id
+		@RequestParam(name="id"         , required=true , defaultValue="-1"  ) Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit") String  redirectTarget
 	) {
 		employeeRepo.deleteById(id);
-		return "redirect:/edit";
+		return "redirect:/"+redirectTarget;
 	}
 
 	@PostMapping("/delete_department")
 	public String deleteDepartment(
-		@RequestParam(name="id", required=true, defaultValue="-1") Integer id
+		@RequestParam(name="id"         , required=true , defaultValue="-1"  ) Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit") String  redirectTarget
 	) {
 		if (departmentRepo.existsById(id)) {
 			int employeesUsingCount = employeeRepo.countByDepartmentID(id);
@@ -116,6 +126,30 @@ public class UserInterface {
 			if (employeesUsingCount==0)
 				departmentRepo.deleteById(id);
 		}
-		return "redirect:/edit";
+		return "redirect:/"+redirectTarget;
+	}
+
+	@PostMapping("/update_address")
+	public String updateAddress(
+		@RequestParam(name="id"         , required=true , defaultValue="-1"  ) Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit") String  redirectTarget
+	) {
+		return "redirect:/"+redirectTarget;
+	}
+
+	@PostMapping("/update_employee")
+	public String updateEmployee(
+		@RequestParam(name="id"         , required=true , defaultValue="-1"  ) Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit") String  redirectTarget
+	) {
+		return "redirect:/"+redirectTarget;
+	}
+
+	@PostMapping("/update_department")
+	public String updateDepartment(
+		@RequestParam(name="id"         , required=true , defaultValue="-1"  ) Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue="edit") String  redirectTarget
+	) {
+		return "redirect:/"+redirectTarget;
 	}
 }

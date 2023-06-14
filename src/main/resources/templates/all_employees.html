@@ -55,10 +55,12 @@
                 <td>
                     <form action="/delete_employee" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${emp.getID()}">
+                        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">delete</button>
                     </form>
                     <form action="/update_employee" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${emp.getID()}">
+                        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">modify</button>
                     </form>
                 </td>

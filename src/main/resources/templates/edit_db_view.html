@@ -13,12 +13,14 @@
 	</script>
 </head>
 <body onload="TabPanelControl.select('all_departments_button', 'all_departments_table');">
+
     <form id="add_address" action="/add_address" class="graybox" method="POST">
         <label form="add_address">add address:</label><br/>
         <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
         <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
         <label>town   :<input type="text" name="town"    maxlength="40"></label><br/>
         <label>zipcode:<input type="text" name="zipcode" maxlength="40"></label><br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
@@ -32,6 +34,7 @@
             </select>
         </label>
         <br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
@@ -52,6 +55,7 @@
                 <option th:each="dep : ${allDepartments}" th:value="${dep.getID()}" th:text="${dep.toLabel()}"></option>
             </select>
         </label><br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
@@ -66,5 +70,6 @@
         <div id="all_departments_table" class="TabContent" th:insert="~{all_departments :: table}"></div>
         <div id="all_employees_table"   class="TabContent" th:insert="~{all_employees   :: table}"></div>
     </div>
+    
 </body>
 </html>
