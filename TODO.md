@@ -26,7 +26,7 @@
 * "modify" tasks
     * e.q. combined with "add" tasks (a select above \["Add new", "existing item 1", "existing item 2", ... \])
 * parameterize "redirect"s at end of tasks
-* make tab panel code more compact
+* make tab panel code more compact -> **solved**
 * search in thymeleaf docs for a more sophisticated way to build (dynamic) views
 
 ### IDE

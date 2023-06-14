@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="/stylesheets/general.css">
 	<link rel="stylesheet" href="/stylesheets/table.css">
+	<link rel="stylesheet" href="/stylesheets/tabpanel.css">
     <style type="text/css">
 		form {
 			margin-bottom: 20px;
@@ -13,81 +14,12 @@
         label[form] {
             font-weight: bold;
         }
-        .Table {
-            display: none;
-        }
-        .Table.Selected {
-            display: block;
-        }
-        .TableButton {
-            display: inline-block;
-            border: 1px solid #bbb;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            padding: 5px 10px;
-            background: #f7f7f7;
-        }
-        .TableButton.Selected {
-            background: #e4f4ff;
-        }
-
     </style>
+	<script src="/js/tabpanelcontrol.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
-        function createTableButtons( containerId ) {
-            let container = document.getElementById(containerId);
-            if (!container) return;
-
-            function setElement( element, isSelected ) {
-                if (isSelected)
-                    element.classList.add('Selected');
-                else
-                    element.classList.remove('Selected');
-            }
-
-            function showSelection( elements, isSelected ) {
-                if (elements) {
-                    setElement( elements.table , isSelected );
-                    setElement( elements.button, isSelected );
-                }
-            }
-
-            let selected = null;
-
-            function add( tableId, label, isSelected ) {
-                let table = document.getElementById(tableId);
-                if (!table) return;
-
-                let button = container.appendChild(document.createElement('span'));
-                button.className = 'TableButton'
-                button.textContent = label;
-
-                button.addEventListener('click', ()=>{
-                    showSelection( selected, false );
-                    selected = { table, button };
-                    showSelection( selected, true );
-                });
-
-                if (isSelected) {
-                    selected = { table, button };
-                    showSelection( selected, true );
-                }
-            }
-
-            return {
-                add,
-            };
-        }
-
-		function addTableButtons() {
-            let buttons = createTableButtons( 'table_buttons' );
-            if (!buttons) return;
-            buttons.add('all_employees_table'  , 'Employees'  , false);
-            buttons.add('all_departments_table', 'Departments', false);
-            buttons.add('all_addresses_table'  , 'Addresses'  , true );
-        }
 	</script>
 </head>
-<body onload="addTableButtons();">
+<body onload="TabPanelControl.select('all_departments_button', 'all_departments_table');">
     <form id="add_address" action="/add_address" class="graybox">
         <label form="add_address">add address:</label><br/>
         <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
@@ -132,10 +64,14 @@
     </form>
    
     <div>
-        <div id="table_buttons"></div>
-        <div id="all_addresses_table"   class="Table" th:insert="~{all_addresses :: table}"></div>
-        <div id="all_departments_table" class="Table" th:insert="~{all_departments :: table}"></div>
-        <div id="all_employees_table"   class="Table" th:insert="~{all_employees :: table}"></div>
+        <div>
+            <button id="all_addresses_button"   class="TabButton" onclick="TabPanelControl.select('all_addresses_button'  , 'all_addresses_table'  );">Employees</button>
+            <button id="all_departments_button" class="TabButton" onclick="TabPanelControl.select('all_departments_button', 'all_departments_table');">Departments</button>
+            <button id="all_employees_button"   class="TabButton" onclick="TabPanelControl.select('all_employees_button'  , 'all_employees_table'  );">Addresses</button>
+        </div>
+        <div id="all_addresses_table"   class="TabContent" th:insert="~{all_addresses   :: table}"></div>
+        <div id="all_departments_table" class="TabContent" th:insert="~{all_departments :: table}"></div>
+        <div id="all_employees_table"   class="TabContent" th:insert="~{all_employees   :: table}"></div>
     </div>
 </body>
 </html>

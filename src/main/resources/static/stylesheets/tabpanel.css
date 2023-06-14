@@ -1,0 +1,23 @@
+.TabContent {
+    display: none;
+}
+.TabContent.SelectedTab {
+    display: block;
+}
+.TabButton:first-child {
+    margin-left: 10px;
+}
+.TabButton {
+    display: inline-block;
+    border-top: 1px solid gray;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 5px 10px;
+    background: #f7f7f7;
+}
+.TabButton.SelectedTab {
+    background: #e8eef9;
+}
