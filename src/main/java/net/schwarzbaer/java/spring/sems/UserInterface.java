@@ -81,4 +81,41 @@ public class UserInterface {
 		employeeRepo.save(new Employee(forename, surname, address, department));
 		return "redirect:/edit";
 	}
+
+	@PostMapping("/delete_address")
+	public String deleteAddress(
+		@RequestParam(name="id", required=true, defaultValue="-1") Integer id
+	) {
+		if (addressRepo.existsById(id)) {
+			int departmentsUsingCount = departmentRepo.countByAddressID(id);
+			int employeesUsingCount = employeeRepo.countByAddressID(id);
+			System.out.printf("Address[ID:%d] is assigned to %d departments and %d employees.%n", id, departmentsUsingCount, employeesUsingCount);
+
+			if (departmentsUsingCount==0 && employeesUsingCount==0)
+				addressRepo.deleteById(id);
+		}
+		return "redirect:/edit";
+	}
+
+	@PostMapping("/delete_employee")
+	public String deleteEmployee(
+		@RequestParam(name="id", required=true, defaultValue="-1") Integer id
+	) {
+		employeeRepo.deleteById(id);
+		return "redirect:/edit";
+	}
+
+	@PostMapping("/delete_department")
+	public String deleteDepartment(
+		@RequestParam(name="id", required=true, defaultValue="-1") Integer id
+	) {
+		if (departmentRepo.existsById(id)) {
+			int employeesUsingCount = employeeRepo.countByDepartmentID(id);
+			System.out.printf("Department[ID:%d] is assigned to %d employees.%n", id, employeesUsingCount);
+
+			if (employeesUsingCount==0)
+				departmentRepo.deleteById(id);
+		}
+		return "redirect:/edit";
+	}
 }

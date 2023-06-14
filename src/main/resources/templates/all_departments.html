@@ -19,6 +19,7 @@
                 <th>housenumber</th>
                 <th>town       </th>
                 <th>zipcode    </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,16 @@
                 <td th:text="${depAddr!=null} ? ${depAddr.getHousenumber()} : '--'">[housenumber ]</td>
                 <td th:text="${depAddr!=null} ? ${depAddr.getTown()       } : '--'">[town        ]</td>
                 <td th:text="${depAddr!=null} ? ${depAddr.getZipcode()    } : '--'">[zipcode     ]</td>
+                <td>
+                    <form action="/delete_department" class="taskform" method="POST">
+                        <input type="hidden" name="id" th:value="${dep.getID()}">
+                        <button type="submit">delete</button>
+                    </form>
+                    <form action="/update_department" class="taskform" method="POST">
+                        <input type="hidden" name="id" th:value="${dep.getID()}">
+                        <button type="submit">modify</button>
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>

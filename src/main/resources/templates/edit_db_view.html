@@ -7,13 +7,6 @@
 	<link rel="stylesheet" href="/stylesheets/table.css">
 	<link rel="stylesheet" href="/stylesheets/tabpanel.css">
     <style type="text/css">
-		form {
-			margin-bottom: 20px;
-            width: max-content;
-		}
-        label[form] {
-            font-weight: bold;
-        }
     </style>
 	<script src="/js/tabpanelcontrol.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
@@ -65,9 +58,9 @@
    
     <div>
         <div>
-            <button id="all_addresses_button"   class="TabButton" onclick="TabPanelControl.select('all_addresses_button'  , 'all_addresses_table'  );">Employees</button>
+            <button id="all_addresses_button"   class="TabButton" onclick="TabPanelControl.select('all_addresses_button'  , 'all_addresses_table'  );">Addresses</button>
             <button id="all_departments_button" class="TabButton" onclick="TabPanelControl.select('all_departments_button', 'all_departments_table');">Departments</button>
-            <button id="all_employees_button"   class="TabButton" onclick="TabPanelControl.select('all_employees_button'  , 'all_employees_table'  );">Addresses</button>
+            <button id="all_employees_button"   class="TabButton" onclick="TabPanelControl.select('all_employees_button'  , 'all_employees_table'  );">Employees</button>
         </div>
         <div id="all_addresses_table"   class="TabContent" th:insert="~{all_addresses   :: table}"></div>
         <div id="all_departments_table" class="TabContent" th:insert="~{all_departments :: table}"></div>

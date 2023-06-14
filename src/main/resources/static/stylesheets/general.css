@@ -8,3 +8,13 @@ body {
     padding: 5px;
     background: #f7f7f7;
 }
+form.graybox {
+    margin-bottom: 20px;
+    width: max-content;
+}
+form.graybox label[form] {
+    font-weight: bold;
+}
+form.taskform {
+    display: inline-block;
+}
