@@ -21,17 +21,18 @@
 
 ### user interface
 * "create" tasks -> **solved**
-* "delete" tasks
-    * e.q. in "all" tables
+* "delete" tasks (in "all" tables) -> **solved**
 * "update" tasks
     * e.q. combined with "add" tasks (a select above \["Add new", "existing item 1", "existing item 2", ... \])
     * or in separate views, called from "all" tables
 * switch task endpoints from "GET" to "POST" -> **solved**
-* parameterize "redirect"s at end of tasks
+* parameterize "redirect"s at end of tasks -> **solved**
 * make tab panel code more compact -> **solved**
 * search in thymeleaf docs for a more sophisticated way to build (dynamic) views
 
 ### IDE
 * get CoPilot
 
-
+Text Text Text Text  
+    Text Text Text Text
+> Text Text Text Text
