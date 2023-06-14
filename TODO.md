@@ -20,11 +20,13 @@
     * extend to bidirectional relations
 
 ### user interface
-* "add" tasks -> **solved**
+* "create" tasks -> **solved**
 * "delete" tasks
     * e.q. in "all" tables
-* "modify" tasks
+* "update" tasks
     * e.q. combined with "add" tasks (a select above \["Add new", "existing item 1", "existing item 2", ... \])
+    * or in separate views, called from "all" tables
+* switch task endpoints from "GET" to "POST" -> **solved**
 * parameterize "redirect"s at end of tasks
 * make tab panel code more compact -> **solved**
 * search in thymeleaf docs for a more sophisticated way to build (dynamic) views
