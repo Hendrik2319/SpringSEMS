@@ -53,12 +53,12 @@
                 <td th:text="${depAddr!=null} ? ${depAddr.getTown()       } : '--'">[dep.town        ]</td>
                 <td th:text="${depAddr!=null} ? ${depAddr.getZipcode()    } : '--'">[dep.zipcode     ]</td>
                 <td>
-                    <form action="/delete_employee" class="taskform" method="POST">
+                    <form th:action="${config.basePath + config.endpoints.delete_employee}" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${emp.getID()}">
                         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">delete</button>
                     </form>
-                    <form action="/update_employee" class="taskform" method="POST">
+                    <form th:action="${config.basePath + config.endpoints.update_employee}" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${emp.getID()}">
                         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">modify</button>

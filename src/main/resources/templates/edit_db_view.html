@@ -14,7 +14,7 @@
 </head>
 <body onload="TabPanelControl.select('all_departments_button', 'all_departments_table');">
 
-    <form id="add_address" action="/add_address" class="graybox" method="POST">
+    <form id="add_address" th:action="${config.basePath + config.endpoints.add_address}" class="graybox" method="POST">
         <label form="add_address">add address:</label><br/>
         <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
         <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
@@ -25,7 +25,7 @@
         <button type="submit">submit</button>
     </form>
     
-    <form id="add_department" action="/add_department" class="graybox" method="POST">
+    <form id="add_department" th:action="${config.basePath + config.endpoints.add_department}" class="graybox" method="POST">
         <label form="add_department">add department:</label><br/>
         <label>name :<input type="text" name="name"></label><br/>
         <label>address :
@@ -39,7 +39,7 @@
         <button type="submit">submit</button>
     </form>
     
-    <form id="add_employee" action="/add_employee" class="graybox" method="POST">
+    <form id="add_employee" th:action="${config.basePath + config.endpoints.add_employee}" class="graybox" method="POST">
         <label form="add_employee">add employee:</label><br/>
         <label>forename :<input type="text" name="forename"></label><br/>
         <label>surname  :<input type="text" name="surname" ></label><br/>

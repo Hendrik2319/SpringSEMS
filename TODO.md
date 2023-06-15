@@ -32,7 +32,3 @@
 
 ### IDE
 * get CoPilot
-
-Text Text Text Text  
-    Text Text Text Text
-> Text Text Text Text

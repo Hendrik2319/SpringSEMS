@@ -28,12 +28,12 @@
                 <td th:text="${addr.getTown()       }">[town        ]</td>
                 <td th:text="${addr.getZipcode()    }">[zipcode     ]</td>
                 <td>
-                    <form action="/delete_address" class="taskform" method="POST">
+                    <form th:action="${config.basePath + config.endpoints.delete_address}" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${addr.getID()}">
                         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">delete</button>
                     </form>
-                    <form action="/update_address" class="taskform" method="POST">
+                    <form th:action="${config.basePath + config.endpoints.update_address}" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${addr.getID()}">
                         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">modify</button>
