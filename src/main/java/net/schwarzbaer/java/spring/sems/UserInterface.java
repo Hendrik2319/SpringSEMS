@@ -51,11 +51,19 @@ public class UserInterface {
 			public static final String all_departments = "all_departments";
 			public static final String all_employees   = "all_employees";
 			public static final String edit            = "edit_db_view";
+			public static final String message         = "message";
 		}
 	}
 
 	private String buildRedirectStatement(String redirectTarget) {
 		return "redirect:"+redirectTarget;
+	}
+
+	private String showMessage(Model model, String  redirectTarget, String title, String... paragraphs) {
+		model.addAttribute("redirectTarget", redirectTarget);
+		model.addAttribute("title", title);
+		model.addAttribute("paragraphs", paragraphs);
+		return Config.Views.message;
 	}
 
 	@GetMapping(Config.Endpoints.all_addresses)
@@ -133,15 +141,35 @@ public class UserInterface {
 	@PostMapping(Config.Endpoints.delete_address)
 	public String deleteAddress(
 		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget
+		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget,
+		Model model
 	) {
 		if (addressRepo.existsById(id)) {
 			int departmentsUsingCount = departmentRepo.countByAddressID(id);
-			int employeesUsingCount   = employeeRepo.countByAddressID(id);
+			int employeesUsingCount   = employeeRepo  .countByAddressID(id);
 			System.out.printf("Address[ID:%d] is assigned to %d departments and %d employees.%n", id, departmentsUsingCount, employeesUsingCount);
 
-			if (departmentsUsingCount==0 && employeesUsingCount==0)
-				addressRepo.deleteById(id);
+			if (departmentsUsingCount!=0 || employeesUsingCount!=0) {
+				String assignmentsMsg = "{assignmentsMsg}";
+				String relevantGroups = "{relevantGroups}";
+				if (departmentsUsingCount!=0 && employeesUsingCount!=0) {
+					assignmentsMsg = String.format("Address is assigned to %d department(s) and %d employee(s).", departmentsUsingCount, employeesUsingCount);
+					relevantGroups = "department(s) and employee(s)";
+				} else if (departmentsUsingCount!=0) {
+					assignmentsMsg = String.format("Address is assigned to %d department(s).", departmentsUsingCount);
+					relevantGroups = "department(s)";
+				} else if (employeesUsingCount!=0) {
+					assignmentsMsg = String.format("Address is assigned to %d employee(s).", employeesUsingCount);
+					relevantGroups = "employee(s)";
+				}
+				return showMessage(model, redirectTarget,
+					"Can't delete address.",
+					assignmentsMsg,
+					String.format("You should assign different addresses to the relevant %s.", relevantGroups)
+				);
+			}
+
+			addressRepo.deleteById(id);
 		}
 		return buildRedirectStatement(redirectTarget);
 	}
@@ -149,11 +177,20 @@ public class UserInterface {
 	@PostMapping(Config.Endpoints.delete_department)
 	public String deleteDepartment(
 		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget
+		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget,
+		Model model
 	) {
 		if (departmentRepo.existsById(id)) {
 			int employeesUsingCount = employeeRepo.countByDepartmentID(id);
 			System.out.printf("Department[ID:%d]* is assigned to %d employees.%n", id, employeesUsingCount);
+
+			if (employeesUsingCount!=0) {
+				return showMessage(model, redirectTarget,
+					"Can't delete department.",
+					String.format("Department is assigned to %d employee(s).", employeesUsingCount),
+					"You should assign different departments to the relevant employee(s)."
+				);
+			}
 
 			if (employeesUsingCount==0)
 				departmentRepo.deleteById(id);
