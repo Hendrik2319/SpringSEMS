@@ -17,7 +17,7 @@
 ### database
 * define relationships (entity relationship model)  
     * unidirectional relations -> **created**
-    * extend to bidirectional relations
+    * extend to bidirectional relations -> **solved**
 
 ### user interface
 * "create" tasks -> **solved**
