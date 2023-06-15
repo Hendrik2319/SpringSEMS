@@ -84,9 +84,9 @@ public class UserInterface {
     
 	@GetMapping(Config.Endpoints.edit)
 	public String showAddDepartmentView(Model model) {
-		model.addAttribute("allAddresses", addressRepo.findAll());
-		model.addAttribute("allEmployees", employeeRepo.findAll());
+		model.addAttribute("allAddresses",   addressRepo   .findAll());
 		model.addAttribute("allDepartments", departmentRepo.findAll());
+		model.addAttribute("allEmployees",   employeeRepo  .findAll());
 		model.addAttribute("redirectTarget", Config.basePath + Config.Endpoints.edit);
 		model.addAttribute("config", config);
 		return Config.Views.edit;
@@ -137,11 +137,26 @@ public class UserInterface {
 	) {
 		if (addressRepo.existsById(id)) {
 			int departmentsUsingCount = departmentRepo.countByAddressID(id);
-			int employeesUsingCount = employeeRepo.countByAddressID(id);
+			int employeesUsingCount   = employeeRepo.countByAddressID(id);
 			System.out.printf("Address[ID:%d] is assigned to %d departments and %d employees.%n", id, departmentsUsingCount, employeesUsingCount);
 
 			if (departmentsUsingCount==0 && employeesUsingCount==0)
 				addressRepo.deleteById(id);
+		}
+		return buildRedirectStatement(redirectTarget);
+	}
+
+	@PostMapping(Config.Endpoints.delete_department)
+	public String deleteDepartment(
+		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
+		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget
+	) {
+		if (departmentRepo.existsById(id)) {
+			int employeesUsingCount = employeeRepo.countByDepartmentID(id);
+			System.out.printf("Department[ID:%d]* is assigned to %d employees.%n", id, employeesUsingCount);
+
+			if (employeesUsingCount==0)
+				departmentRepo.deleteById(id);
 		}
 		return buildRedirectStatement(redirectTarget);
 	}
@@ -155,21 +170,6 @@ public class UserInterface {
 		return "redirect:/"+redirectTarget;
 	}
 
-	@PostMapping(Config.Endpoints.delete_department)
-	public String deleteDepartment(
-		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget
-	) {
-		if (departmentRepo.existsById(id)) {
-			int employeesUsingCount = employeeRepo.countByDepartmentID(id);
-			System.out.printf("Department[ID:%d] is assigned to %d employees.%n", id, employeesUsingCount);
-
-			if (employeesUsingCount==0)
-				departmentRepo.deleteById(id);
-		}
-		return buildRedirectStatement(redirectTarget);
-	}
-
 	@PostMapping(Config.Endpoints.update_address)
 	public String updateAddress(
 		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
@@ -178,16 +178,16 @@ public class UserInterface {
 		return buildRedirectStatement(redirectTarget);
 	}
 
-	@PostMapping(Config.Endpoints.update_employee)
-	public String updateEmployee(
+	@PostMapping(Config.Endpoints.update_department)
+	public String updateDepartment(
 		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
 		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget
 	) {
 		return buildRedirectStatement(redirectTarget);
 	}
 
-	@PostMapping(Config.Endpoints.update_department)
-	public String updateDepartment(
+	@PostMapping(Config.Endpoints.update_employee)
+	public String updateEmployee(
 		@RequestParam(name="id"         , required=true , defaultValue="-1") Integer id,
 		@RequestParam(name="redirect_to", required=false, defaultValue=Config.basePath + Config.Endpoints.edit) String  redirectTarget
 	) {
