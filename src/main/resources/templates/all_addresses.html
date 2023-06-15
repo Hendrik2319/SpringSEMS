@@ -17,16 +17,20 @@
                 <th>housenumber</th>
                 <th>town       </th>
                 <th>zipcode    </th>
+                <th>employees  </th>
+                <th>departments</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="addr : ${allAddresses}">
-                <td th:text="${addr.getID()         }">[id          ]</td>
-                <td th:text="${addr.getStreet()     }">[street      ]</td>
-                <td th:text="${addr.getHousenumber()}">[housenumber ]</td>
-                <td th:text="${addr.getTown()       }">[town        ]</td>
-                <td th:text="${addr.getZipcode()    }">[zipcode     ]</td>
+                <td th:text="${addr.getID()         }">[ID          ]</td>
+                <td th:text="${addr.getStreet()     }">[Street      ]</td>
+                <td th:text="${addr.getHousenumber()}">[Housenumber ]</td>
+                <td th:text="${addr.getTown()       }">[Town        ]</td>
+                <td th:text="${addr.getZipcode()    }">[Zipcode     ]</td>
+                <td th:text="${addr.getEmployeesCount()  }">[EmployeesCount   ]</td>
+                <td th:text="${addr.getDepartmentsCount()}">[DepartmentsCount ]</td>
                 <td>
                     <form th:action="${config.basePath + config.endpoints.delete_address}" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${addr.getID()}">

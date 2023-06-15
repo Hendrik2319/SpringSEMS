@@ -1,11 +1,15 @@
 package net.schwarzbaer.java.spring.sems.department;
 
+import java.util.Collection;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import net.schwarzbaer.java.spring.sems.address.Address;
+import net.schwarzbaer.java.spring.sems.employee.Employee;
 
 @Entity
 public class Department {
@@ -18,6 +22,9 @@ public class Department {
     
 	@ManyToOne
 	private Address address;
+
+    @OneToMany(mappedBy="department")
+    Collection<Employee> employees;
 
 	protected Department() {}
 
@@ -49,4 +56,5 @@ public class Department {
     public String  getName     () { return name;    }
     public Address getAddress  () { return address; }
 	public boolean hasAddress  () { return address!=null; }
+	public Integer getEmployeesCount() { return employees.size(); }
 }

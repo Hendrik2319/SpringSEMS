@@ -1,9 +1,14 @@
 package net.schwarzbaer.java.spring.sems.address;
 
+import java.util.Collection;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import net.schwarzbaer.java.spring.sems.department.Department;
+import net.schwarzbaer.java.spring.sems.employee.Employee;
 
 @Entity
 public class Address {
@@ -16,6 +21,12 @@ public class Address {
     private Integer housenumber;
     private String  town;
     private Integer zipcode;
+
+    @OneToMany(mappedBy="address")
+    Collection<Employee> employees;
+
+    @OneToMany(mappedBy="address")
+    Collection<Department> departments;
 
     protected Address() {}
 
@@ -50,4 +61,6 @@ public class Address {
     public Integer getHousenumber() { return housenumber; }
     public String  getTown       () { return town;        }
 	public Integer getZipcode    () { return zipcode;     }
+	public Integer getEmployeesCount  () { return employees.size(); }
+	public Integer getDepartmentsCount() { return departments.size(); }
 }
