@@ -35,18 +35,18 @@ public class Department {
 	}
 
     public String toLabel() {
-		if (address==null)
-			return name;
-        return String.format(
-            "%s, %s",
-            name, address.toLabel()
-        );
+		String str = String.format(
+			"[%d] %s",
+			id, name
+		);
+		if (address!=null) str += ", "+address.toLabel();
+		return str;
     }
 
 	public void setName   (String  name   ) { this.name    = name;    }
     public void setAddress(Address address) { this.address = address; }
-    public Integer getID     () { return id;      }
-    public String  getName   () { return name;    }
-    public Address getAddress() { return address; }
-	public boolean hasAddress() { return address!=null; }
+    public Integer getID       () { return id;      }
+    public String  getName     () { return name;    }
+    public Address getAddress  () { return address; }
+	public boolean hasAddress  () { return address!=null; }
 }

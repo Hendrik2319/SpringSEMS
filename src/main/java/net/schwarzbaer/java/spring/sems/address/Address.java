@@ -36,8 +36,8 @@ public class Address {
 
     public String toLabel() {
         return String.format(
-            "%s %d, %d %s",
-            street, housenumber, zipcode, town
+            "[%d] %s %d, %d %s",
+            id, street, housenumber, zipcode, town
         );
     }
 

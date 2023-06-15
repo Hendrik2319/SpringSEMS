@@ -25,6 +25,24 @@ public class Employee {
     @ManyToOne
     private Department department;
 
+	@Override
+	public String toString() {
+		return String.format(
+            "Employee[ id=%d, forename=\"%s\", surname=\"%s\", address=%s, department=%s ]",
+			id, forename, surname, address, department
+		);
+	}
+
+    public String toLabel() {
+        String str = String.format(
+            "[%d] %s %s",
+            id, forename, surname
+        );
+		if (address   !=null) str += ", "+address   .toLabel();
+		if (department!=null) str += ", "+department.toLabel();
+        return str;
+    }
+
     public Employee() {}
 
     public Employee(String forename, String surname, Address address, Department department) {

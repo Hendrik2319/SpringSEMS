@@ -58,7 +58,7 @@
                         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">delete</button>
                     </form>
-                    <form th:action="${config.basePath + config.endpoints.update_employee}" class="taskform" method="POST">
+                    <form th:action="${config.basePath + config.endpoints.call_update_employee_view}" class="taskform" method="POST">
                         <input type="hidden" name="id" th:value="${emp.getID()}">
                         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                         <button type="submit">modify</button>

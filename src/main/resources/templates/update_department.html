@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>SEMS: Update Department</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/stylesheets/general.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <form id="form" th:action="${config.basePath + config.endpoints.update_department}" class="graybox" method="POST">
+        <label form="form">update department:</label><br/>
+        <label>ID      : <input type="text" name="id"   th:value="${department.getID()  }" readonly></label><br/>
+        <label>name    : <input type="text" name="name" th:value="${department.getName()}" ></label><br/>
+        <label>address :
+            <select name="addr_id">
+                <option value="-1" th:selected="${!department.hasAddress()}">-- not assigned --</option>
+                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}" th:selected="${!department.hasAddress()} ? false : ${department.getAddress().getID() == addr.getID()}"></option>
+            </select>
+        </label>
+        <br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+
+</body>
+</html>

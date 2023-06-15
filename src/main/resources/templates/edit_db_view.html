@@ -16,10 +16,10 @@
 
     <form id="add_address" th:action="${config.basePath + config.endpoints.add_address}" class="graybox" method="POST">
         <label form="add_address">add address:</label><br/>
-        <label>street :<input type="text" name="street"  maxlength="40"></label><br/>
-        <label>house  :<input type="text" name="house"   maxlength="40"></label><br/>
-        <label>town   :<input type="text" name="town"    maxlength="40"></label><br/>
-        <label>zipcode:<input type="text" name="zipcode" maxlength="40"></label><br/>
+        <label>street  : <input type="text" name="street"  maxlength="40"></label><br/>
+        <label>house   : <input type="text" name="house"   maxlength="40"></label><br/>
+        <label>town    : <input type="text" name="town"    maxlength="40"></label><br/>
+        <label>zipcode : <input type="text" name="zipcode" maxlength="40"></label><br/>
         <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
         <button type="reset">reset</button>
         <button type="submit">submit</button>
@@ -27,7 +27,7 @@
     
     <form id="add_department" th:action="${config.basePath + config.endpoints.add_department}" class="graybox" method="POST">
         <label form="add_department">add department:</label><br/>
-        <label>name :<input type="text" name="name"></label><br/>
+        <label>name    : <input type="text" name="name"></label><br/>
         <label>address :
             <select name="addr_id">
                 <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
@@ -41,16 +41,14 @@
     
     <form id="add_employee" th:action="${config.basePath + config.endpoints.add_employee}" class="graybox" method="POST">
         <label form="add_employee">add employee:</label><br/>
-        <label>forename :<input type="text" name="forename"></label><br/>
-        <label>surname  :<input type="text" name="surname" ></label><br/>
-        <label>
-            home address:
+        <label>forename     : <input type="text" name="forename"></label><br/>
+        <label>surname      : <input type="text" name="surname" ></label><br/>
+        <label>home address :
             <select name="addr_id">
                 <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
             </select>
         </label><br/>
-        <label>
-            department:
+        <label>department :
             <select name="dep_id">
                 <option th:each="dep : ${allDepartments}" th:value="${dep.getID()}" th:text="${dep.toLabel()}"></option>
             </select>

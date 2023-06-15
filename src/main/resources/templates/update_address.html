@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>SEMS: Update Address</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/stylesheets/general.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <form id="form" th:action="${config.basePath + config.endpoints.update_address}" class="graybox" method="POST">
+        <label form="form">update address:</label><br/>
+        <label>ID      : <input type="text" name="id"      maxlength="40" th:value="${address.getID()         }" readonly></label><br/>
+        <label>street  : <input type="text" name="street"  maxlength="40" th:value="${address.getStreet()     }"></label><br/>
+        <label>house   : <input type="text" name="house"   maxlength="40" th:value="${address.getHousenumber()}"></label><br/>
+        <label>town    : <input type="text" name="town"    maxlength="40" th:value="${address.getTown()       }"></label><br/>
+        <label>zipcode : <input type="text" name="zipcode" maxlength="40" th:value="${address.getZipcode()    }"></label><br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>

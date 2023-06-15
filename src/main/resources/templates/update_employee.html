@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>SEMS: Update Employee</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/stylesheets/general.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <form id="form" th:action="${config.basePath + config.endpoints.update_employee}" class="graybox" method="POST">
+        <label form="form">update employee:</label><br/>
+        <label>ID       : <input type="text" name="id"       th:value="${employee.getID()      }" readonly></label><br/>
+        <label>forename : <input type="text" name="forename" th:value="${employee.getForename()}"></label><br/>
+        <label>surname  : <input type="text" name="surname"  th:value="${employee.getSurname() }"></label><br/>
+        <label>
+            home address:
+            <select name="addr_id">
+                <option value="-1" th:selected="${!employee.hasAddress()}">-- not assigned --</option>
+                <option
+                    th:each="addr : ${allAddresses}"
+                    th:selected="${!employee.hasAddress()} ? false : ${employee.getAddress().getID() == addr.getID()}"
+                    th:value="${addr.getID()}"
+                    th:text="${addr.toLabel()}"
+                ></option>
+            </select>
+        </label><br/>
+        <label>
+            department:
+            <select name="dep_id">
+                <option value="-1" th:selected="${!employee.hasDepartment()}">-- not assigned --</option>
+                <option
+                    th:each="dep : ${allDepartments}"
+                    th:selected="${!employee.hasDepartment()} ? false : ${employee.getDepartment().getID() == dep.getID()}"
+                    th:value="${dep.getID()}"
+                    th:text="${dep.toLabel()}"
+                ></option>
+            </select>
+        </label><br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>
