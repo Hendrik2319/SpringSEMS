@@ -29,6 +29,7 @@
 * change `config` into a model attribute
 * **[solved]** change endpoints structure (`form/delete_address` into `form/addresses/delete`)
 * **[solved]** extract endpoint methods into separate controllers for each entity
+* **[solved]** convert `index.html` into a template and create endpoint
 * in `all_...` tables:
     * _transform_ separate forms for each delete/modify button in each row
     * _into_ a single from for the whole table with multiple submit buttons with a name (`='delete'` or `='update'`) and a value (`='${entity.getID()}'`)

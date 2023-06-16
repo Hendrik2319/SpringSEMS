@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SEMS - Simple Employee Management System</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<link rel="stylesheet" href="/stylesheets/general.css">
+    <style type="text/css">
+		#links {
+            padding: 10px;
+            border-radius: 10px;
+            width: max-content;
+		}
+		#links a {
+            display: block;
+        }
+        .h1 { font-size: 20px; font-weight: bold; margin: 0px; }
+        .h2 { font-size: 15px; font-weight: bold; margin: 10px 0px; }
+	</style>
+</head>
+<body>
+    <div id="links" class="graybox">
+        <div class="h1">Interesting Links:</div>
+        <div th:each="list : ${linklists}">
+            <div class="h2" th:text="${list.title}">[title]</div>
+            <a th:each="link : ${list.links}" th:href="${link.path}" th:text="${link.label}" target="_blank">[label]</a>
+        </div>
+    </div>
+</body>
+</html>

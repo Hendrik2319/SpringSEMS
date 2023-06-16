@@ -1,5 +1,7 @@
 package net.schwarzbaer.java.spring.sems;
 
+import java.util.Vector;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,4 +96,52 @@ public class UserInterface {
 		model.addAttribute("config", Helper.config);
 		return Config.Views.edit;
 	}
+    
+	@GetMapping({"/", "/home"})
+	public String showHome(Model model) {
+		model.addAttribute("linklists", new LinkList[] {
+			new LinkList("REST")
+			.add("/rest"              )
+			.add("/rest/addresses"    )
+			.add("/rest/addresses/1"  )
+			.add("/rest/departments"  )
+			.add("/rest/departments/1")
+			.add("/rest/employees"    )
+			.add("/rest/employees/1"  )
+			,
+			new LinkList("Views")
+			.add(Config.Endpoints.FullPath.ADDRESSES  , "All Addresses")
+			.add(Config.Endpoints.FullPath.EMPLOYEES  , "All Departments")
+			.add(Config.Endpoints.FullPath.DEPARTMENTS, "All Employees")
+			.add(Config.Endpoints.FullPath.EDIT       , "Edit Database View")
+		});
+		return "home";
+	}
+
+	public static class LinkList
+	{
+		public final String title;
+		public final Vector<Link> links;
+
+		LinkList(String title) {
+			this.title = title;
+			links = new Vector<>();
+		}
+		LinkList add(String path              ) { links.add(new Link(path       )); return this; }
+		LinkList add(String path, String label) { links.add(new Link(path, label)); return this; }
+	}
+
+	public static class Link
+	{
+		public final String path;
+		public final String label;
+
+		private Link(String path) { this(path, path); }
+		private Link(String path, String label)
+		{
+			this.path = path;
+			this.label = label;
+		}
+	}
+
 }
