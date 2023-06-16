@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-    <form id="form" th:action="${config.basePath + config.endpoints.update_employee}" class="graybox" method="POST">
+    <form id="form" th:action="${config.endpoints.employees.update}" class="graybox" method="POST">
         <label form="form">update employee:</label><br/>
         <label>ID       : <input type="text" name="id"       th:value="${employee.getID()      }" readonly></label><br/>
         <label>forename : <input type="text" name="forename" th:value="${employee.getForename()}"></label><br/>

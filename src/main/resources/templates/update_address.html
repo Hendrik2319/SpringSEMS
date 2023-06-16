@@ -8,7 +8,7 @@
     </style>
 </head>
 <body>
-    <form id="form" th:action="${config.basePath + config.endpoints.update_address}" class="graybox" method="POST">
+    <form id="form" th:action="${config.endpoints.addresses.update}" class="graybox" method="POST">
         <label form="form">update address:</label><br/>
         <label>ID      : <input type="text" name="id"      maxlength="40" th:value="${address.getID()         }" readonly></label><br/>
         <label>street  : <input type="text" name="street"  maxlength="40" th:value="${address.getStreet()     }"></label><br/>
