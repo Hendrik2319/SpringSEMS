@@ -17,4 +17,4 @@ Spring Boot is the base. It combines features seen in some "Getting Started" pto
 2. Copy `config/application.properties.default` to `config/application.properties`
 3. Set path, username and password of your mysql database in `config/application.properties`
 
-[### TODO](https://github.com/Hendrik2319/SpringSEMS/blob/master/TODO.md)
+[TODO](https://github.com/Hendrik2319/SpringSEMS/blob/master/TODO.md)
