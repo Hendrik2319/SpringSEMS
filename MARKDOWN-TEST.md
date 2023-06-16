@@ -9,6 +9,10 @@ Text Text Text Text \<lineend with 2 spaces\>
 #### Headline 4
 ##### Headline 5
 ###### Headline 6
+####### Headline 7
+######## Headline 8
+######### Headline 9
+########## Headline 10
 
 
 _italic_, **bold**, `monospace`
