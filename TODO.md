@@ -4,7 +4,6 @@
 * **[started]** write README.md
 * **[solved]** push to github
 * **[solved]** externalize some config (e.q. MySQL url/password/user)
-* rebuild application in pure Spring (without Spring Boot)
 
 ### REST interface
 * **[solved]** move REST api in subpath (e.q. "api" or "rest")
@@ -24,7 +23,20 @@
 * **[solved]** parameterize "redirect"s at end of tasks
 * **[solved]** make tab panel code more compact
 * search in thymeleaf docs for a more sophisticated way to build (dynamic) views
-* add authentication and authorization features (Spring Security)
+    * tighter binding between Spring and Thymeleaf (like [Thymeleaf & Spring tutorial](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html))
+
+### improvements & refactorings
+* change `config` into a model attribute
+* change endpoints structure (`form/delete_address` into `form/addresses/delete`)
+* extract endpoint methods into separate conmtrollers for each entity
+* in `all_...` tables:
+    * _transform_ separate forms for each delete/modify button in each row
+    * _into_ a single from for the whole table with multiple submit buttons with a name (`='delete'` or `='update'`) and a value (`='${entity.getID()}'`)
+    * adapt endpoint methods: one for both (delete and update) or two separate distinguished by query parameter (`delete` or `update`)
 
 ### IDE
 * get CoPilot
+
+### bigger tasks
+* add authentication and authorization features (Spring Security)
+* rebuild application in pure Spring (without Spring Boot)
