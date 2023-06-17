@@ -10,7 +10,7 @@
 
 ### database
 * define relationships (entity relationship model)  
-    * **[created]** unidirectional relations
+    * **[solved]** unidirectional relations
     * **[solved]** extend to bidirectional relations
 
 ### user interface
@@ -26,15 +26,15 @@
     * tighter binding between Spring and Thymeleaf (like [Thymeleaf & Spring tutorial](https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html))
 
 ### improvements & refactorings
-* change `config` into a model attribute
+* **[discarded]** change `config` into a model attribute
 * **[solved]** change endpoints structure (`form/delete_address` into `form/addresses/delete`)
 * **[solved]** extract endpoint methods into separate controllers for each entity
 * **[solved]** convert `index.html` into a template and create endpoint
 * **[solved]** combine `all_...` tables with corresponding `add ...` forms (--> one template for each entity type and `edit-view` contains inserted fragments only)
-* in `all_...` tables:
+* **[solved]** in `all_...` tables:
     * _transform_ separate forms for each delete/modify button in each row
     * _into_ a single from for the whole table with multiple submit buttons with a name (`='delete'` or `='update'`) and a value (`='${entity.getID()}'`)
-    * adapt endpoint methods: one for both (delete and update) or two separate distinguished by query parameter (`delete` or `update`)
+    * **[solved]** adapt endpoint methods: one for both (delete and update) or **[chosen]** two separate distinguished by query parameter (`delete` or `update`)
 
 ### IDE
 * get CoPilot

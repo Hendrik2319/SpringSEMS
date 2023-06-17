@@ -9,6 +9,7 @@
     </style>
 </head>
 <body>
+
     <form th:fragment="create_address_form" id="create_address_form" th:action="${config.endpoints.addresses.create}" class="graybox" method="POST">
         <label form="create_address_form">add address:</label><br/>
         <label>street  : <input type="text" name="street" ></label><br/>
@@ -19,42 +20,39 @@
         <button type="reset">reset</button>
         <button type="submit">submit</button>
     </form>
-    <table cellspacing="0" th:fragment="table">
-        <thead>
-            <tr>
-                <th>ID         </th>
-                <th>street     </th>
-                <th>housenumber</th>
-                <th>town       </th>
-                <th>zipcode    </th>
-                <th>employees  </th>
-                <th>departments</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="addr : ${allAddresses}">
-                <td th:text="${addr.getID()         }">[ID          ]</td>
-                <td th:text="${addr.getStreet()     }">[Street      ]</td>
-                <td th:text="${addr.getHousenumber()}">[Housenumber ]</td>
-                <td th:text="${addr.getTown()       }">[Town        ]</td>
-                <td th:text="${addr.getZipcode()    }">[Zipcode     ]</td>
-                <td th:text="${addr.getEmployeesCount()  }">[EmployeesCount   ]</td>
-                <td th:text="${addr.getDepartmentsCount()}">[DepartmentsCount ]</td>
-                <td>
-                    <form th:action="${config.endpoints.addresses.delete}" class="taskform" method="POST">
-                        <input type="hidden" name="id" th:value="${addr.getID()}">
-                        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-                        <button type="submit">delete</button>
-                    </form>
-                    <form th:action="${config.endpoints.addresses.update_view}" class="taskform" method="POST">
-                        <input type="hidden" name="id" th:value="${addr.getID()}">
-                        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-                        <button type="submit">modify</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
+    <form th:fragment="table" th:action="${config.endpoints.addresses.modify}" method="POST">
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID         </th>
+                    <th>street     </th>
+                    <th>housenumber</th>
+                    <th>town       </th>
+                    <th>zipcode    </th>
+                    <th>employees  </th>
+                    <th>departments</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="addr : ${allAddresses}">
+                    <td th:text="${addr.getID()         }">[ID          ]</td>
+                    <td th:text="${addr.getStreet()     }">[Street      ]</td>
+                    <td th:text="${addr.getHousenumber()}">[Housenumber ]</td>
+                    <td th:text="${addr.getTown()       }">[Town        ]</td>
+                    <td th:text="${addr.getZipcode()    }">[Zipcode     ]</td>
+                    <td th:text="${addr.getEmployeesCount()  }">[EmployeesCount   ]</td>
+                    <td th:text="${addr.getDepartmentsCount()}">[DepartmentsCount ]</td>
+                    <td>
+                        <button type="submit" name="delete" th:value="${addr.getID()}">delete</button>
+                        <button type="submit" name="update" th:value="${addr.getID()}">modify</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    
 </body>
 </html>

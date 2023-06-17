@@ -31,10 +31,10 @@ public class AddressController extends UserInterface.Helper {
 
 	@PostMapping(Config.Endpoints.EntityCommand.CREATE)
 	public String add(
-		@RequestParam(name="street"     , defaultValue="unkown street") String  street,
-		@RequestParam(name="house"      , defaultValue="12"           ) Integer housenumber,
-		@RequestParam(name="town"       , defaultValue="unkown town"  ) String  town,
-		@RequestParam(name="zipcode"    , defaultValue="123"          ) Integer zipcode,
+		@RequestParam(name="street"     , defaultValue="<street>") String  street,
+		@RequestParam(name="house"      , defaultValue="12"      ) Integer housenumber,
+		@RequestParam(name="town"       , defaultValue="<town>"  ) String  town,
+		@RequestParam(name="zipcode"    , defaultValue="12345"   ) Integer zipcode,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		Address address = new Address(street,housenumber,town,zipcode);
@@ -42,9 +42,9 @@ public class AddressController extends UserInterface.Helper {
 		return buildRedirectStatement(redirectTarget);
 	}
 
-	@PostMapping(Config.Endpoints.EntityCommand.DELETE)
+	@PostMapping(path = Config.Endpoints.EntityCommand.MODIFY, params = "delete")
 	public String delete(
-		@RequestParam(name="id"         , defaultValue="-1") Integer id,
+		@RequestParam(name="delete"     , defaultValue="-1") Integer id,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
@@ -78,9 +78,9 @@ public class AddressController extends UserInterface.Helper {
 		return buildRedirectStatement(redirectTarget);
 	}
 
-	@PostMapping(Config.Endpoints.EntityCommand.UPDATE_VIEW)
+	@PostMapping(path = Config.Endpoints.EntityCommand.MODIFY, params = "update")
 	public String callUpdateView(
-		@RequestParam(name="id"         , defaultValue="-1") Integer id,
+		@RequestParam(name="update"     , defaultValue="-1") Integer id,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
@@ -98,7 +98,7 @@ public class AddressController extends UserInterface.Helper {
 		@RequestParam(name="street"     , defaultValue="<street>") String  street,
 		@RequestParam(name="house"      , defaultValue="12"      ) Integer housenumber,
 		@RequestParam(name="town"       , defaultValue="<town>"  ) String  town,
-		@RequestParam(name="zipcode"    , defaultValue="123"     ) Integer zipcode,
+		@RequestParam(name="zipcode"    , defaultValue="12345"   ) Integer zipcode,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		addressRepo.findById(id).ifPresent(address -> {

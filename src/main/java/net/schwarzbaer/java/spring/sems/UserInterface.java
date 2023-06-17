@@ -27,9 +27,8 @@ public class UserInterface {
 			public static class EntityCommand {
 				public static final String ALL         = "";
 				public static final String CREATE      = "/create";
-				public static final String DELETE      = "/delete";
 				public static final String UPDATE      = "/update";
-				public static final String UPDATE_VIEW = "/update_view";
+				public static final String MODIFY      = "/modify";
 			}
 			public static class FullPath {
 				public static final String ADDRESSES   = BASEPATH + "/addresses";
@@ -47,16 +46,14 @@ public class UserInterface {
 			public static class EntityEndpointsFullPath {
 				public final String all;
 				public final String create;
-				public final String delete;
 				public final String update;
-				public final String update_view;
+				public final String modify;
 
 				private EntityEndpointsFullPath(String fullpath) {
 					this.all         = fullpath + EntityCommand.ALL;
 					this.create      = fullpath + EntityCommand.CREATE;
-					this.delete      = fullpath + EntityCommand.DELETE;
 					this.update      = fullpath + EntityCommand.UPDATE;
-					this.update_view = fullpath + EntityCommand.UPDATE_VIEW;
+					this.modify      = fullpath + EntityCommand.MODIFY;
 				}
 			}
 		}

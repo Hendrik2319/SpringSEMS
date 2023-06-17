@@ -33,8 +33,8 @@ public class DepartmentController extends UserInterface.Helper {
 
 	@PostMapping(Config.Endpoints.EntityCommand.CREATE)
 	public String add(
-		@RequestParam(name="name"       , defaultValue="New Department") String  name,
-		@RequestParam(name="addr_id"    , defaultValue="-1"            ) Integer addrID,
+		@RequestParam(name="name"       , defaultValue="<department>") String  name,
+		@RequestParam(name="addr_id"    , defaultValue="-1"          ) Integer addrID,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		Address address = addressRepo.findById(addrID).orElse(null);
@@ -42,9 +42,9 @@ public class DepartmentController extends UserInterface.Helper {
 		return buildRedirectStatement(redirectTarget);
 	}
 
-	@PostMapping(Config.Endpoints.EntityCommand.DELETE)
+	@PostMapping(path = Config.Endpoints.EntityCommand.MODIFY, params = "delete")
 	public String delete(
-		@RequestParam(name="id"         , defaultValue="-1") Integer id,
+		@RequestParam(name="delete"     , defaultValue="-1") Integer id,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
@@ -66,9 +66,9 @@ public class DepartmentController extends UserInterface.Helper {
 		return buildRedirectStatement(redirectTarget);
 	}
 
-	@PostMapping(Config.Endpoints.EntityCommand.UPDATE_VIEW)
+	@PostMapping(path = Config.Endpoints.EntityCommand.MODIFY, params = "update")
 	public String callUpdateView(
-		@RequestParam(name="id"         , defaultValue="-1") Integer id,
+		@RequestParam(name="update"     , defaultValue="-1") Integer id,
 		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
