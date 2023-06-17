@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>SEMS: Edit Database</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="/stylesheets/general.css">
+	<link rel="stylesheet" href="/stylesheets/table.css">
+	<link rel="stylesheet" href="/stylesheets/tabpanel.css">
+    <style type="text/css">
+    </style>
+	<script src="/js/tabpanelcontrol.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+	</script>
+</head>
+<body onload="TabPanelControl.select('all_departments_button', 'all_departments_table');">
+
+    <form th:replace="~{ ${config.views.ALL_ADDRESSES  } :: create_address_form    }"/>
+    <form th:replace="~{ ${config.views.ALL_DEPARTMENTS} :: create_department_form }"/>
+    <form th:replace="~{ ${config.views.ALL_EMPLOYEES  } :: create_employee_form   }"/>
+   
+    <div>
+        <div>
+            <button id="all_addresses_button"   class="TabButton" onclick="TabPanelControl.select('all_addresses_button'  , 'all_addresses_table'  );">Addresses</button>
+            <button id="all_departments_button" class="TabButton" onclick="TabPanelControl.select('all_departments_button', 'all_departments_table');">Departments</button>
+            <button id="all_employees_button"   class="TabButton" onclick="TabPanelControl.select('all_employees_button'  , 'all_employees_table'  );">Employees</button>
+        </div>
+        <div id="all_addresses_table"   class="TabContent" th:insert="~{ ${config.views.ALL_ADDRESSES  } :: table }"></div>
+        <div id="all_departments_table" class="TabContent" th:insert="~{ ${config.views.ALL_DEPARTMENTS} :: table }"></div>
+        <div id="all_employees_table"   class="TabContent" th:insert="~{ ${config.views.ALL_EMPLOYEES  } :: table }"></div>
+    </div>
+    
+</body>
+</html>

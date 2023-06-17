@@ -9,6 +9,16 @@
     </style>
 </head>
 <body>
+    <form th:fragment="create_address_form" id="create_address_form" th:action="${config.endpoints.addresses.create}" class="graybox" method="POST">
+        <label form="create_address_form">add address:</label><br/>
+        <label>street  : <input type="text" name="street" ></label><br/>
+        <label>house   : <input type="text" name="house"  ></label><br/>
+        <label>town    : <input type="text" name="town"   ></label><br/>
+        <label>zipcode : <input type="text" name="zipcode"></label><br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
     <table cellspacing="0" th:fragment="table">
         <thead>
             <tr>

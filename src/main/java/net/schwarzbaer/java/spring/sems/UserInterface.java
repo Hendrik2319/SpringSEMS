@@ -26,16 +26,18 @@ public class UserInterface {
 		public static class Endpoints {
 			public static class EntityCommand {
 				public static final String ALL         = "";
-				public static final String ADD         = "/add";
+				public static final String CREATE      = "/create";
 				public static final String DELETE      = "/delete";
 				public static final String UPDATE      = "/update";
 				public static final String UPDATE_VIEW = "/update_view";
 			}
 			public static class FullPath {
 				public static final String ADDRESSES   = BASEPATH + "/addresses";
-				public static final String EMPLOYEES   = BASEPATH + "/employees";
 				public static final String DEPARTMENTS = BASEPATH + "/departments";
-				public static final String EDIT        = BASEPATH + "/edit";
+				public static final String EMPLOYEES   = BASEPATH + "/employees";
+				public static final String EDIT_ALL    = BASEPATH + "";
+				public static final String ROOT        = "/";
+				public static final String HOME        = "/home";
 			}
 
 			public final EntityEndpointsFullPath addresses   = new EntityEndpointsFullPath(FullPath.ADDRESSES);
@@ -44,14 +46,14 @@ public class UserInterface {
 
 			public static class EntityEndpointsFullPath {
 				public final String all;
-				public final String add;
+				public final String create;
 				public final String delete;
 				public final String update;
 				public final String update_view;
 
 				private EntityEndpointsFullPath(String fullpath) {
 					this.all         = fullpath + EntityCommand.ALL;
-					this.add         = fullpath + EntityCommand.ADD;
+					this.create      = fullpath + EntityCommand.CREATE;
 					this.delete      = fullpath + EntityCommand.DELETE;
 					this.update      = fullpath + EntityCommand.UPDATE;
 					this.update_view = fullpath + EntityCommand.UPDATE_VIEW;
@@ -59,15 +61,16 @@ public class UserInterface {
 			}
 		}
 
+		public final Views views = new Views();
 		public static class Views {
-			public static final String all_addresses   = "all_addresses";
-			public static final String all_departments = "all_departments";
-			public static final String all_employees   = "all_employees";
-			public static final String edit            = "edit_db_view";
-			public static final String message         = "message";
-			public static final String update_address    = "update_address";
-			public static final String update_department = "update_department";
-			public static final String update_employee   = "update_employee";
+			public static final String ALL_ADDRESSES   = "all_addresses";
+			public static final String ALL_DEPARTMENTS = "all_departments";
+			public static final String ALL_EMPLOYEES   = "all_employees";
+			public static final String EDIT            = "edit_db";
+			public static final String MESSAGE         = "message";
+			public static final String UPDATE_ADDRESS    = "update_address";
+			public static final String UPDATE_DEPARTMENT = "update_department";
+			public static final String UPDATE_EMPLOYEE   = "update_employee";
 		}
 	}
 
@@ -83,24 +86,34 @@ public class UserInterface {
 			model.addAttribute("redirectTarget", redirectTarget);
 			model.addAttribute("title", title);
 			model.addAttribute("paragraphs", paragraphs);
-			return Config.Views.message;
+			return Config.Views.MESSAGE;
 		}
 	}
     
-	@GetMapping(Config.Endpoints.FullPath.EDIT)
+	@GetMapping(Config.Endpoints.FullPath.EDIT_ALL)
 	public String showEditView(Model model) {
-		model.addAttribute("allAddresses",   addressRepo   .findAll());
+		model.addAttribute("allAddresses"  , addressRepo   .findAll());
 		model.addAttribute("allDepartments", departmentRepo.findAll());
-		model.addAttribute("allEmployees",   employeeRepo  .findAll());
-		model.addAttribute("redirectTarget", Config.Endpoints.FullPath.EDIT);
-		model.addAttribute("config", Helper.config);
-		return Config.Views.edit;
+		model.addAttribute("allEmployees"  , employeeRepo  .findAll());
+		model.addAttribute("redirectTarget", Config.Endpoints.FullPath.EDIT_ALL);
+		model.addAttribute("config"        , Helper.config);
+		return Config.Views.EDIT;
 	}
     
-	@GetMapping({"/", "/home"})
+	@GetMapping({Config.Endpoints.FullPath.ROOT, Config.Endpoints.FullPath.HOME})
 	public String showHome(Model model) {
 		model.addAttribute("linklists", new LinkList[] {
-			new LinkList("REST")
+			new LinkList("General")
+			.add(Config.Endpoints.FullPath.ROOT, "Path Root")
+			.add(Config.Endpoints.FullPath.HOME, "Home")
+			,
+			new LinkList("Database Views")
+			.add(Config.Endpoints.FullPath.ADDRESSES  , "Addresses")
+			.add(Config.Endpoints.FullPath.DEPARTMENTS, "Departments")
+			.add(Config.Endpoints.FullPath.EMPLOYEES  , "Employees")
+			.add(Config.Endpoints.FullPath.EDIT_ALL   , "Edit Database")
+			,
+			new LinkList("REST API")
 			.add("/rest"              )
 			.add("/rest/addresses"    )
 			.add("/rest/addresses/1"  )
@@ -108,12 +121,6 @@ public class UserInterface {
 			.add("/rest/departments/1")
 			.add("/rest/employees"    )
 			.add("/rest/employees/1"  )
-			,
-			new LinkList("Views")
-			.add(Config.Endpoints.FullPath.ADDRESSES  , "All Addresses")
-			.add(Config.Endpoints.FullPath.EMPLOYEES  , "All Departments")
-			.add(Config.Endpoints.FullPath.DEPARTMENTS, "All Employees")
-			.add(Config.Endpoints.FullPath.EDIT       , "Edit Database View")
 		});
 		return "home";
 	}

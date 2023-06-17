@@ -25,19 +25,21 @@ public class EmployeeController extends UserInterface.Helper {
     
 	@GetMapping(Config.Endpoints.EntityCommand.ALL)
 	public String showAll(Model model) {
-		model.addAttribute("allEmployees", employeeRepo.findAll());
+		model.addAttribute("allAddresses"  , addressRepo   .findAll());
+		model.addAttribute("allDepartments", departmentRepo.findAll());
+		model.addAttribute("allEmployees"  , employeeRepo  .findAll());
 		model.addAttribute("redirectTarget", config.endpoints.employees.all);
-		model.addAttribute("config", config);
-		return Config.Views.all_employees;
+		model.addAttribute("config"        , config);
+		return Config.Views.ALL_EMPLOYEES;
 	}
 
-	@PostMapping(Config.Endpoints.EntityCommand.ADD)
+	@PostMapping(Config.Endpoints.EntityCommand.CREATE)
 	public String add(
 		@RequestParam(name="forename"   , defaultValue="<forename>") String  forename,
 		@RequestParam(name="surname"    , defaultValue="<surname>" ) String  surname,
 		@RequestParam(name="addr_id"    , defaultValue="-1"       ) Integer addrID,
 		@RequestParam(name="dep_id"     , defaultValue="-1"       ) Integer depID,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		Address    address    =    addressRepo.findById(addrID).orElse(null);
 		Department department = departmentRepo.findById( depID).orElse(null);
@@ -48,7 +50,7 @@ public class EmployeeController extends UserInterface.Helper {
 	@PostMapping(Config.Endpoints.EntityCommand.DELETE)
 	public String delete(
 		@RequestParam(name="id"         , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		employeeRepo.deleteById(id);
 		return buildRedirectStatement(redirectTarget);
@@ -57,7 +59,7 @@ public class EmployeeController extends UserInterface.Helper {
 	@PostMapping(Config.Endpoints.EntityCommand.UPDATE_VIEW)
 	public String callUpdateView(
 		@RequestParam(name="id"         , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget,
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
 		Employee employee = employeeRepo.findById(id).orElse(null);
@@ -67,7 +69,7 @@ public class EmployeeController extends UserInterface.Helper {
 		model.addAttribute("allDepartments", departmentRepo.findAll());
 		model.addAttribute("redirectTarget", redirectTarget);
 		model.addAttribute("config"        , config);
-		return Config.Views.update_employee;
+		return Config.Views.UPDATE_EMPLOYEE;
 	}
 
 	@PostMapping(Config.Endpoints.EntityCommand.UPDATE)
@@ -77,7 +79,7 @@ public class EmployeeController extends UserInterface.Helper {
 		@RequestParam(name="surname"    , defaultValue="<surname>" ) String  surname,
 		@RequestParam(name="addr_id"    , defaultValue="-1"        ) Integer addrID,
 		@RequestParam(name="dep_id"     , defaultValue="-1"        ) Integer depID,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		employeeRepo.findById(id).ifPresent(employee -> {
 			employee.setForename  (forename);

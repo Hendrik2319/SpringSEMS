@@ -9,6 +9,19 @@
     </style>
 </head>
 <body>
+    <form th:fragment="create_department_form" th:id="create_department_form" th:action="${config.endpoints.departments.create}" class="graybox" method="POST">
+        <label th:form="create_department_form">add department:</label><br/>
+        <label>name    : <input type="text" name="name"></label><br/>
+        <label>address :
+            <select name="addr_id">
+                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
+            </select>
+        </label>
+        <br/>
+        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+        <button type="reset">reset</button>
+        <button type="submit">submit</button>
+    </form>
     <table cellspacing="0" th:fragment="table">
         <thead>
             <tr>

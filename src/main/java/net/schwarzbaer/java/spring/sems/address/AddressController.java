@@ -23,19 +23,19 @@ public class AddressController extends UserInterface.Helper {
 
 	@GetMapping(Config.Endpoints.EntityCommand.ALL)
 	public String showAll(Model model) {
-		model.addAttribute("allAddresses", addressRepo.findAll());
+		model.addAttribute("allAddresses"  , addressRepo.findAll());
 		model.addAttribute("redirectTarget", config.endpoints.addresses.all);
-		model.addAttribute("config", config);
-		return Config.Views.all_addresses;
+		model.addAttribute("config"        , config);
+		return Config.Views.ALL_ADDRESSES;
 	}
 
-	@PostMapping(Config.Endpoints.EntityCommand.ADD)
+	@PostMapping(Config.Endpoints.EntityCommand.CREATE)
 	public String add(
 		@RequestParam(name="street"     , defaultValue="unkown street") String  street,
 		@RequestParam(name="house"      , defaultValue="12"           ) Integer housenumber,
 		@RequestParam(name="town"       , defaultValue="unkown town"  ) String  town,
 		@RequestParam(name="zipcode"    , defaultValue="123"          ) Integer zipcode,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		Address address = new Address(street,housenumber,town,zipcode);
 		addressRepo.save(address);
@@ -45,7 +45,7 @@ public class AddressController extends UserInterface.Helper {
 	@PostMapping(Config.Endpoints.EntityCommand.DELETE)
 	public String delete(
 		@RequestParam(name="id"         , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget,
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
 		if (addressRepo.existsById(id)) {
@@ -81,7 +81,7 @@ public class AddressController extends UserInterface.Helper {
 	@PostMapping(Config.Endpoints.EntityCommand.UPDATE_VIEW)
 	public String callUpdateView(
 		@RequestParam(name="id"         , defaultValue="-1") Integer id,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget,
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget,
 		Model model
 	) {
 		Address address = addressRepo.findById(id).orElse(null);
@@ -89,7 +89,7 @@ public class AddressController extends UserInterface.Helper {
 		model.addAttribute("address"       , address);
 		model.addAttribute("redirectTarget", redirectTarget);
 		model.addAttribute("config"        , config);
-		return Config.Views.update_address;
+		return Config.Views.UPDATE_ADDRESS;
 	}
 
 	@PostMapping(Config.Endpoints.EntityCommand.UPDATE)
@@ -99,7 +99,7 @@ public class AddressController extends UserInterface.Helper {
 		@RequestParam(name="house"      , defaultValue="12"      ) Integer housenumber,
 		@RequestParam(name="town"       , defaultValue="<town>"  ) String  town,
 		@RequestParam(name="zipcode"    , defaultValue="123"     ) Integer zipcode,
-		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT) String  redirectTarget
+		@RequestParam(name="redirect_to", defaultValue=Config.Endpoints.FullPath.EDIT_ALL) String  redirectTarget
 	) {
 		addressRepo.findById(id).ifPresent(address -> {
 			address.setStreet     (street     );
