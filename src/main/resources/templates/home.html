@@ -25,5 +25,8 @@
             <a th:each="link : ${list.links}" th:href="${link.path}" th:text="${link.label}" target="_blank">[label]</a>
         </div>
     </div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
 </body>
 </html>

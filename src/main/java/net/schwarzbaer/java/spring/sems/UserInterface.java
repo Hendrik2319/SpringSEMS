@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.schwarzbaer.java.spring.sems.address.AddressRepo;
 import net.schwarzbaer.java.spring.sems.department.DepartmentRepo;
@@ -37,6 +38,7 @@ public class UserInterface {
 				public static final String EDIT_ALL    = BASEPATH + "";
 				public static final String ROOT        = "/";
 				public static final String HOME        = "/home";
+				public static final String LOGIN       = "/login";
 			}
 
 			public final EntityEndpointsFullPath addresses   = new EntityEndpointsFullPath(FullPath.ADDRESSES);
@@ -60,14 +62,16 @@ public class UserInterface {
 
 		public final Views views = new Views();
 		public static class Views {
-			public static final String ALL_ADDRESSES   = "all_addresses";
-			public static final String ALL_DEPARTMENTS = "all_departments";
-			public static final String ALL_EMPLOYEES   = "all_employees";
-			public static final String EDIT            = "edit_db";
-			public static final String MESSAGE         = "message";
+			public static final String ALL_ADDRESSES     = "all_addresses";
+			public static final String ALL_DEPARTMENTS   = "all_departments";
+			public static final String ALL_EMPLOYEES     = "all_employees";
 			public static final String UPDATE_ADDRESS    = "update_address";
 			public static final String UPDATE_DEPARTMENT = "update_department";
 			public static final String UPDATE_EMPLOYEE   = "update_employee";
+			public static final String EDIT              = "edit_db";
+			public static final String MESSAGE           = "message";
+			public static final String HOME              = "home";
+			public static final String LOGIN             = "login";
 		}
 	}
 
@@ -85,6 +89,11 @@ public class UserInterface {
 			model.addAttribute("paragraphs", paragraphs);
 			return Config.Views.MESSAGE;
 		}
+	}
+    
+	@RequestMapping(Config.Endpoints.FullPath.LOGIN)
+	public String showLogin(Model model) {
+		return Config.Views.LOGIN;
 	}
     
 	@GetMapping(Config.Endpoints.FullPath.EDIT_ALL)
