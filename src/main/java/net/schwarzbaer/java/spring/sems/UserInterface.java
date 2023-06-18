@@ -110,16 +110,17 @@ public class UserInterface {
 	public String showHome(Model model) {
 		model.addAttribute("linklists", new LinkList[] {
 			new LinkList("General")
-			.add(Config.Endpoints.FullPath.ROOT, "Path Root")
-			.add(Config.Endpoints.FullPath.HOME, "Home")
+			.add(Config.Endpoints.FullPath.ROOT , "Path Root")
+			.add(Config.Endpoints.FullPath.HOME , "Home"     )
+			.add(Config.Endpoints.FullPath.LOGIN, "Login"    )
 			,
-			new LinkList("Database Views")
-			.add(Config.Endpoints.FullPath.ADDRESSES  , "Addresses")
-			.add(Config.Endpoints.FullPath.DEPARTMENTS, "Departments")
-			.add(Config.Endpoints.FullPath.EMPLOYEES  , "Employees")
+			new LinkList("Database Views", "with authorization")
+			.add(Config.Endpoints.FullPath.ADDRESSES  , "Addresses"    )
+			.add(Config.Endpoints.FullPath.DEPARTMENTS, "Departments"  )
+			.add(Config.Endpoints.FullPath.EMPLOYEES  , "Employees"    )
 			.add(Config.Endpoints.FullPath.EDIT_ALL   , "Edit Database")
 			,
-			new LinkList("REST API")
+			new LinkList("REST API", "with authorization")
 			.add("/rest"              )
 			.add("/rest/addresses"    )
 			.add("/rest/addresses/1"  )
@@ -134,10 +135,13 @@ public class UserInterface {
 	public static class LinkList
 	{
 		public final String title;
+		public final String subtitle;
 		public final Vector<Link> links;
 
-		LinkList(String title) {
+		LinkList(String title) { this(title, null); }
+		LinkList(String title, String subtitle) {
 			this.title = title;
+			this.subtitle = subtitle;
 			links = new Vector<>();
 		}
 		LinkList add(String path              ) { links.add(new Link(path       )); return this; }

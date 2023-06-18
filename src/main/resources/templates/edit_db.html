@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head> 
     <title>SEMS: Edit Database</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,6 +16,10 @@
 	</script>
 </head>
 <body onload="TabPanelControl.select('all_departments_button', 'all_departments_table');">
+
+    <div class="loginstate">
+        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+    </div>
 
     <form th:replace="~{ ${config.views.ALL_ADDRESSES  } :: create_address_form    }"/>
     <form th:replace="~{ ${config.views.ALL_DEPARTMENTS} :: create_department_form }"/>

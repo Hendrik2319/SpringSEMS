@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head> 
     <title>SEMS: All Employees</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,6 +12,10 @@
     </style>
 </head>
 <body>
+    
+    <div class="loginstate">
+        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+    </div>
 
     <form th:fragment="create_employee_form" id="create_employee_form" th:action="${config.endpoints.employees.create}" class="graybox" method="POST">
         <label form="create_employee_form">add employee:</label><br/>

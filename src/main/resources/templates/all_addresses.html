@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head> 
     <title>SEMS: All Adressses</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -9,6 +12,10 @@
     </style>
 </head>
 <body>
+    
+    <div class="loginstate">
+        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+    </div>
 
     <form th:fragment="create_address_form" id="create_address_form" th:action="${config.endpoints.addresses.create}" class="graybox" method="POST">
         <label form="create_address_form">add address:</label><br/>

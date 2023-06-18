@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-    <head>
-        <title>SEMS - Login</title>
-    </head>
-    <body>
-        <div th:if="${param.error}">
-            Invalid username and password.
-            Failed to login.
-            <div th:if="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-                Reason: <p th:text="${SPRING_SECURITY_LAST_EXCEPTION.message}">[SPRING_SECURITY_LAST_EXCEPTION.message]</p>
-            </div>
-        </div>
-        <div th:if="${param.logout}">
-            You have been logged out.
-        </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password  : <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
-    </body>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>SEMS - Login</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<link rel="stylesheet" href="/stylesheets/general.css">
+    <style type="text/css">
+        .box {
+            width: max-content;
+        }
+	</style>
+</head>
+<body>
+
+    <div th:if="${param.error}" class="box">
+        Invalid username and password.
+    </div>
+
+    <div th:if="${param.logout}" class="box">
+        You have been logged out.
+    </div>
+
+    <form th:action="@{/login}" method="POST" class="graybox">
+        <div><label> User Name : <input type="text" name="username"/> </label></div>
+        <div><label> Password  : <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Sign In"/></div>
+    </form>
+    
+</body>
 </html>
