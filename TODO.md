@@ -40,5 +40,5 @@
 * get CoPilot
 
 ### bigger tasks
-* add authentication and authorization features (Spring Security)
+* **[solved]** add authentication and authorization features (Spring Security) -> with embedded LDAP server
 * rebuild application in pure Spring (without Spring Boot)

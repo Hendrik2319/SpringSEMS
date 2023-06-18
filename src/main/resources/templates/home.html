@@ -7,6 +7,7 @@
     <title>SEMS - Simple Employee Management System</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<link rel="stylesheet" href="/stylesheets/general.css">
+	<link rel="stylesheet" href="/stylesheets/table.css">
     <style type="text/css">
 		#links {
             padding: 10px;
@@ -37,11 +38,18 @@
         </div>
     </div>
     
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST" class="box">
-        You are logged in as :<br/>
-        User    : <span sec:authentication="name">&lt;username&gt;</span><br/>
-        Role(s) : <span sec:authentication="authorities">&lt;roles&gt;</span><br/>
-        <br/>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST" class="graybox">
+        You are logged in as :
+        <table class="propertylist">
+            <tr>
+                <td>User</td>
+                <td sec:authentication="name">&lt;username&gt;</td>
+            </tr>
+            <tr>
+                <td>Role(s)</td>
+                <td><div th:each="auth : ${#authentication.authorities}" th:text="${auth}">&lt;role&gt;</div></td>
+            </tr>
+        </table>
         <input type="submit" value="Log Out"/>
     </form>
     
