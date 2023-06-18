@@ -37,10 +37,12 @@
         </div>
     </div>
     
-    <form th:action="@{/logout}" method="POST" class="box">
-        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST" class="box">
+        You are logged in as :<br/>
+        User    : <span sec:authentication="name">&lt;username&gt;</span><br/>
+        Role(s) : <span sec:authentication="authorities">&lt;roles&gt;</span><br/>
         <br/>
-        <input type="submit" value="Sign Out"/>
+        <input type="submit" value="Log Out"/>
     </form>
     
 </body>

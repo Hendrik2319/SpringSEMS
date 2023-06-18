@@ -39,6 +39,7 @@ public class UserInterface {
 				public static final String ROOT        = "/";
 				public static final String HOME        = "/home";
 				public static final String LOGIN       = "/login";
+				public static final String USERINFO    = "/userinfo";
 			}
 
 			public final EntityEndpointsFullPath addresses   = new EntityEndpointsFullPath(FullPath.ADDRESSES);
@@ -72,6 +73,7 @@ public class UserInterface {
 			public static final String MESSAGE           = "message";
 			public static final String HOME              = "home";
 			public static final String LOGIN             = "login";
+			public static final String USERINFO          = "userinfo";
 		}
 	}
 
@@ -96,6 +98,34 @@ public class UserInterface {
 		return Config.Views.LOGIN;
 	}
     
+	@RequestMapping(Config.Endpoints.FullPath.USERINFO)
+	public String showUserInfo(Model model) {
+		model.addAttribute("helper"  , new UserInfoHelper());
+		return Config.Views.USERINFO;
+	}
+	// #authorization: org.thymeleaf.extras.springsecurity6.auth.Authorization
+	// #authentication: org.springframework.security.core.Authentication
+	public static class UserInfoHelper {
+		public String getClassStr(Object obj) {
+			if (obj == null)
+				return "<null>";
+
+			String str = obj.getClass().getName();
+
+			if (obj instanceof Iterable<?>) {
+				Iterable<?> arr = (Iterable<?>)obj;
+				for (Object obj2 : arr) {
+					if (obj2 == null)
+						str += String.format("%n-> <null>");
+					else
+						str += String.format("%n-> %s", obj2.getClass().getName());
+				}
+			}
+
+			return str;
+		}
+	}
+    
 	@GetMapping(Config.Endpoints.FullPath.EDIT_ALL)
 	public String showEditView(Model model) {
 		model.addAttribute("allAddresses"  , addressRepo   .findAll());
@@ -110,9 +140,10 @@ public class UserInterface {
 	public String showHome(Model model) {
 		model.addAttribute("linklists", new LinkList[] {
 			new LinkList("General")
-			.add(Config.Endpoints.FullPath.ROOT , "Path Root")
-			.add(Config.Endpoints.FullPath.HOME , "Home"     )
-			.add(Config.Endpoints.FullPath.LOGIN, "Login"    )
+			.add(Config.Endpoints.FullPath.ROOT    , "Path Root")
+			.add(Config.Endpoints.FullPath.HOME    , "Home"     )
+			.add(Config.Endpoints.FullPath.LOGIN   , "Login"    )
+			.add(Config.Endpoints.FullPath.USERINFO, "User Info")
 			,
 			new LinkList("Database Views", "with authorization")
 			.add(Config.Endpoints.FullPath.ADDRESSES  , "Addresses"    )

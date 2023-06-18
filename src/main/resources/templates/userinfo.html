@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>SEMS: User Info</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<link rel="stylesheet" href="/stylesheets/general.css">
+	<link rel="stylesheet" href="/stylesheets/table.css">
+    <style type="text/css">
+        pre { margin: 0px; }
+	</style>
+</head>
+<body>
+    
+    <h4>#authentication.&lt;property&gt;</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>property</th>
+                <th>JAVA class</th>
+                <th>value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>name</td>
+                <td><pre th:text="${helper.getClassStr(#authentication.name)}"></pre></td>
+                <td sec:authentication="name"></td>
+            </tr>
+            <tr>
+                <td>principal</td>
+                <td><pre th:text="${helper.getClassStr(#authentication.principal)}"></pre></td>
+                <td sec:authentication="principal"></td>
+            </tr>
+            <tr>
+                <td>authorities</td>
+                <td><pre th:text="${helper.getClassStr(#authentication.authorities)}"></pre></td>
+                <td sec:authentication="authorities"></td>
+            </tr>
+            <tr>
+                <td>details</td>
+                <td><pre th:text="${helper.getClassStr(#authentication.details)}"></pre></td>
+                <td sec:authentication="details"></td>
+            </tr>
+            <tr>
+                <td>credentials</td>
+                <td><pre th:text="${helper.getClassStr(#authentication.credentials)}"></pre></td>
+                <td sec:authentication="credentials"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4>#authentication.authorities</h4>
+    <table>
+        <thead>
+            <th>toString</th>
+            <th>getAuthority</th>
+        </thead>
+        <tbody>
+            <tr th:each="auth : ${#authentication.authorities}">
+                <td th:text="${auth.toString()}"></td>
+                <td th:text="${auth.getAuthority()}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h4>#authentication.isAuthenticated()</h4>
+    <!--<div th:text="&{#authentication.isAuthenticated()}"></div>-->
+    <div sec:authorize="isAuthenticated()">
+        isAuthenticated() via sec:authorize="isAuthenticated()"
+    </div>
+    <div th:if="${#authorization.expression('isAuthenticated()')}">
+        isAuthenticated() via th:if="${#authorization.expression('isAuthenticated()')}"
+    </div>
+    <div th:unless="${#authorization.expression('isAuthenticated()')}">
+        NOT isAuthenticated() via th:unless="${#authorization.expression('isAuthenticated()')}"
+    </div>
+
+</body>
+</html>

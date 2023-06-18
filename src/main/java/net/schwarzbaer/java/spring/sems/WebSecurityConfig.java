@@ -18,12 +18,16 @@ public class WebSecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests(requests -> requests
-				.requestMatchers("/", "/home").permitAll() // landing page
+				.requestMatchers(
+					UserInterface.Config.Endpoints.FullPath.ROOT,
+					UserInterface.Config.Endpoints.FullPath.HOME,
+					UserInterface.Config.Endpoints.FullPath.USERINFO
+				).permitAll() // landing page and others
 				.requestMatchers("/stylesheets/**", "/js/**").permitAll() // web resources
 				.anyRequest().authenticated()
 			)
 			.formLogin(form -> form
-				.loginPage("/login")
+				.loginPage(UserInterface.Config.Endpoints.FullPath.LOGIN)
 				.permitAll()
 			)
 			.logout((logout) -> logout.permitAll());
