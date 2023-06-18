@@ -144,6 +144,7 @@ public class UserInterface {
 			.add(Config.Endpoints.FullPath.HOME    , "Home"     )
 			.add(Config.Endpoints.FullPath.LOGIN   , "Login"    )
 			.add(Config.Endpoints.FullPath.USERINFO, "User Info")
+			.add("/ldap")
 			,
 			new LinkList("Database Views", "with authorization")
 			.add(Config.Endpoints.FullPath.ADDRESSES  , "Addresses"    )

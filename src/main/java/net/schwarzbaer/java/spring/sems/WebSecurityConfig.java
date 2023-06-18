@@ -18,7 +18,8 @@ public class WebSecurityConfig {
 				.requestMatchers(
 					UserInterface.Config.Endpoints.FullPath.ROOT,
 					UserInterface.Config.Endpoints.FullPath.HOME,
-					UserInterface.Config.Endpoints.FullPath.USERINFO
+					UserInterface.Config.Endpoints.FullPath.USERINFO,
+					"/ldap"
 				).permitAll() // landing page and others
 				.requestMatchers("/stylesheets/**", "/js/**").permitAll() // web resources
 				.anyRequest().authenticated()
