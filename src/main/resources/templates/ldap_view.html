@@ -6,11 +6,50 @@
     <title>SEMS: LDAP Inspection</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<link rel="stylesheet" href="/stylesheets/general.css">
+	<link rel="stylesheet" href="/stylesheets/table.css">
     <style type="text/css">
+        th { text-align: left; }
+        td { vertical-align: top; }
 	</style>
 </head>
 <body>
 
-    
+    <ul>
+        <li th:each="str : ${strList}" th:text="${str}"></li>
+    </ul>
+
+    <table class="big">
+        <thead>
+            <tr>
+                <th th:each="attr : ${attributes}" th:text="${attr}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="genAttrMap : ${allData}">
+                <td th:each="attr : ${attributes}"
+                    th:with="genAttr = ${genAttrMap.get(attr)}">
+                    <div th:if="${genAttr.isNull()}" title="<null>">---</div>
+                    <div th:if="${!genAttr.isNull() && genAttr.size()==0}">&lt;empty&gt;</div>
+                    <div th:if="${!genAttr.isNull() && genAttr.size()==1}"
+                        th:with="genVal = ${genAttr.get()}">
+                        <span th:title="${genVal.getClassStr()}" th:text="'[' + ${genVal.getClassKey()} + ']'">[C]</span>
+                        <span th:if="${!genVal.isByteArr()}" th:text="${genVal.getValueStr()       }">[value]</span>
+                        <span th:if="${ genVal.isByteArr()}" th:text="${genVal.getByteArrAsString()}">[value]</span>
+                    </div>
+                    <div th:if="${!genAttr.isNull() && genAttr.size()>1}"
+                        th:with="valList = ${genAttr.getAll()}">
+                        <div th:each="genVal, loopStat : ${valList}">
+                            <span th:text="'(' + ${loopStat.index+1} + ')'">[#]</span>
+                            <span th:title="${genVal.getClassStr()}" th:text="'[' + ${genVal.getClassKey()} + ']'">[C]</span>
+                            <span th:if="${!genVal.isByteArr()}" th:text="${genVal.getValueStr()       }">[value]</span>
+                            <span th:if="${ genVal.isByteArr()}" th:text="${genVal.getByteArrAsString()}">[value]</span>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </body>
 </html>
