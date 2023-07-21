@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1
+
+# file from example project
+
+#FROM gradle:4.7.0-jdk8-alpine
+FROM eclipse-temurin:17-jdk-jammy
+
+WORKDIR /app
+
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:resolve
+
+COPY src ./src
+
+CMD ["./mvnw", "spring-boot:run"]

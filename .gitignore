@@ -38,3 +38,4 @@ out/
 
 ### Misc. ###
 /config/application.properties
+/config/application.disabled.properties
