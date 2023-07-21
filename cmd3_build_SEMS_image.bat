@@ -1,1 +1,1 @@
-docker build --tag sems-docker .
+docker build -f Dockerfile.single --tag sems-docker .

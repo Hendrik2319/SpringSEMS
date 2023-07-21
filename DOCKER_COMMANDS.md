@@ -27,7 +27,7 @@
 -p 3306:3306 mysql:8.0`  
 
 1. build SEMS image  
-`docker build --tag sems-docker .`
+`docker build -f Dockerfile.single --tag sems-docker .`
 
 1. run image as container  
 `docker run --rm -d
@@ -38,3 +38,6 @@
 -e MYSQL_USER=sems_app
 -e MYSQL_PASS=sems_password
 sems-docker`
+
+1. run compose
+`docker-compose -f docker-compose.dev.yml up --build`

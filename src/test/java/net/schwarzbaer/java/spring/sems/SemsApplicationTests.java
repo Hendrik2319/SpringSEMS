@@ -1,14 +1,14 @@
 package net.schwarzbaer.java.spring.sems;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+// import org.assertj.core.api.Assertions;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import net.schwarzbaer.java.spring.sems.address.AddressController;
-import net.schwarzbaer.java.spring.sems.employee.EmployeeController;
-import net.schwarzbaer.java.spring.sems.department.DepartmentController;
-import net.schwarzbaer.java.spring.sems.ldap.LdapInspectController;
+// import net.schwarzbaer.java.spring.sems.address.AddressController;
+// import net.schwarzbaer.java.spring.sems.employee.EmployeeController;
+// import net.schwarzbaer.java.spring.sems.department.DepartmentController;
+// import net.schwarzbaer.java.spring.sems.ldap.LdapInspectController;
 
 //@SuppressWarnings("unused")
 @SpringBootTest

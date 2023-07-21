@@ -1,4 +1,4 @@
-docker run -d^
+docker run --rm -d^
  --name sems-server^
  --network sems_mysqlnet^
  -p 8080:8080^
