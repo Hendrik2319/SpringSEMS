@@ -5,7 +5,7 @@ docker run -it --rm -d^
  --name sems_mysqlserver^
  -e MYSQL_DATABASE=db_sems^
  -e MYSQL_ROOT_PASSWORD=root^
- -e MYSQL_USER=semsapp^
- -e MYSQL_PASSWORD=semspassword^
- -p 3306:3306^
+ -e MYSQL_USER=sems_app^
+ -e MYSQL_PASSWORD=sems_password^
+ -p 3305:3306^
  mysql:8.0
