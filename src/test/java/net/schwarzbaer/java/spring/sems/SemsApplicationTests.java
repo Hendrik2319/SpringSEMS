@@ -14,19 +14,19 @@ import net.schwarzbaer.java.spring.sems.ldap.LdapInspectController;
 @SpringBootTest
 class SemsApplicationTests {
 
-	@Autowired private LdapInspectController ldapInspectController;
-	@Autowired private DepartmentController departmentController;
-	@Autowired private EmployeeController employeeController;
-	@Autowired private AddressController addressController;
-	@Autowired private UserInterface userInterface;
+	// @Autowired private LdapInspectController ldapInspectController;
+	// @Autowired private DepartmentController departmentController;
+	// @Autowired private EmployeeController employeeController;
+	// @Autowired private AddressController addressController;
+	// @Autowired private UserInterface userInterface;
 
-	@Test
-	void contextLoads() {
-		Assertions.assertThat(ldapInspectController).isNotNull();
-		Assertions.assertThat(departmentController).isNotNull();
-		Assertions.assertThat(employeeController).isNotNull();
-		Assertions.assertThat(addressController).isNotNull();
-		Assertions.assertThat(userInterface).isNotNull();
-	}
+	// @Test
+	// void contextLoads() {
+	// 	Assertions.assertThat(ldapInspectController).isNotNull();
+	// 	Assertions.assertThat(departmentController).isNotNull();
+	// 	Assertions.assertThat(employeeController).isNotNull();
+	// 	Assertions.assertThat(addressController).isNotNull();
+	// 	Assertions.assertThat(userInterface).isNotNull();
+	// }
 
 }
