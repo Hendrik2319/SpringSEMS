@@ -6,67 +6,80 @@
 <head> 
     <title>SEMS: All Departments</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="/stylesheets/general.css">
-	<link rel="stylesheet" href="/stylesheets/table.css">
-    <style type="text/css">
-    </style>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+            </div>
+        </div>
     
-    <div class="loginstate">
-        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+        <div th:fragment="create_department_form" class="card text-bg-light mb-3">
+            <div class="card-header">Add Department</div>
+            <div class="card-body">
+                <form th:action="${config.endpoints.departments.create}" method="POST">
+                    <label class="form-label" for="dep_name">name    :</label><input type="text" name="name" id="dep_name" class="form-control">
+                    <label class="form-label" for="dep_addr">address :</label>
+                    <select id="dep_addr" name="addr_id" class="form-select">
+                        <option value="-1" >-- not assigned --</option>
+                        <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
+                    </select>
+                    <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+                    <button type="reset"  class="btn btn-secondary">reset</button>
+                    <button type="submit" class="btn btn-primary"  >submit</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="card text-bg-light">
+            <div class="card-header">Departments</div>
+            <div class="card-body">
+                <form th:fragment="table" th:action="${config.endpoints.departments.modify}" method="POST">
+                    <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID         </th>
+                                    <th scope="col">name       </th>
+                                    <th scope="col">employees  </th>
+                                    <th scope="col">addr.ID    </th>
+                                    <th scope="col">street     </th>
+                                    <th scope="col">housenumber</th>
+                                    <th scope="col">town       </th>
+                                    <th scope="col">zipcode    </th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr th:each="dep : ${allDepartments}"
+                                    th:with="depAddr = ${dep.getAddress()}">
+                                    <td th:text="${dep.getID()  }">[id          ]</td>
+                                    <td th:text="${dep.getName()}">[name        ]</td>
+                                    <td th:text="${dep.getEmployeesCount()}">[EmployeesCount   ]</td>
+                                    <td th:text="${depAddr!=null} ? ${depAddr.getID()         } : '--'">[addr.id     ]</td>
+                                    <td th:text="${depAddr!=null} ? ${depAddr.getStreet()     } : '--'">[street      ]</td>
+                                    <td th:text="${depAddr!=null} ? ${depAddr.getHousenumber()} : '--'">[housenumber ]</td>
+                                    <td th:text="${depAddr!=null} ? ${depAddr.getTown()       } : '--'">[town        ]</td>
+                                    <td th:text="${depAddr!=null} ? ${depAddr.getZipcode()    } : '--'">[zipcode     ]</td>
+                                    <td>
+                                        <button type="submit" name="delete" th:value="${dep.getID()}" class="btn btn-light">delete</button>
+                                        <button type="submit" name="update" th:value="${dep.getID()}" class="btn btn-light">modify</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    
     </div>
-
-    <form th:fragment="create_department_form" th:id="create_department_form" th:action="${config.endpoints.departments.create}" class="graybox" method="POST">
-        <label th:form="create_department_form">add department:</label><br/>
-        <label>name    : <input type="text" name="name"></label><br/>
-        <label>address :
-            <select name="addr_id">
-                <option value="-1" >-- not assigned --</option>
-                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
-            </select>
-        </label>
-        <br/>
-        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-        <button type="reset">reset</button>
-        <button type="submit">submit</button>
-    </form>
-
-    <form th:fragment="table" th:action="${config.endpoints.departments.modify}" method="POST">
-        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-        <table class="big">
-            <thead>
-                <tr>
-                    <th>ID         </th>
-                    <th>name       </th>
-                    <th>employees  </th>
-                    <th>addr.ID    </th>
-                    <th>street     </th>
-                    <th>housenumber</th>
-                    <th>town       </th>
-                    <th>zipcode    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="dep : ${allDepartments}"
-                    th:with="depAddr = ${dep.getAddress()}">
-                    <td th:text="${dep.getID()  }">[id          ]</td>
-                    <td th:text="${dep.getName()}">[name        ]</td>
-                    <td th:text="${dep.getEmployeesCount()}">[EmployeesCount   ]</td>
-                    <td th:text="${depAddr!=null} ? ${depAddr.getID()         } : '--'">[addr.id     ]</td>
-                    <td th:text="${depAddr!=null} ? ${depAddr.getStreet()     } : '--'">[street      ]</td>
-                    <td th:text="${depAddr!=null} ? ${depAddr.getHousenumber()} : '--'">[housenumber ]</td>
-                    <td th:text="${depAddr!=null} ? ${depAddr.getTown()       } : '--'">[town        ]</td>
-                    <td th:text="${depAddr!=null} ? ${depAddr.getZipcode()    } : '--'">[zipcode     ]</td>
-                    <td>
-                        <button type="submit" name="delete" th:value="${dep.getID()}">delete</button>
-                        <button type="submit" name="update" th:value="${dep.getID()}">modify</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
     
+    
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

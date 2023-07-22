@@ -6,52 +6,49 @@
 <head>
     <title>SEMS - Simple Employee Management System</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<link rel="stylesheet" href="/stylesheets/general.css">
-	<link rel="stylesheet" href="/stylesheets/table.css">
-    <style type="text/css">
-		#links {
-            padding: 10px;
-            border-radius: 10px;
-            width: max-content;
-		}
-		#links a {
-            display: block;
-        }
-        form.box {
-            width: max-content;
-        }
-        .h1 { font-size: 20px; font-weight: bold; }
-        .h2 { font-size: 15px; font-weight: bold; }
-        .withmargin { margin: 10px 0px; }
-	</style>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
 
-    <div id="links" class="graybox">
-        <div class="h1">Interesting Links:</div>
-        <div th:each="list : ${linklists}">
-            <div class="withmargin">
-                <div class="h2" th:text="${list.title}">[title]</div>
-                <div th:if="${list.subtitle != null}" th:text="${list.subtitle}">[subtitle]</div>
+        <div class="card text-bg-light mb-3">
+            <h4 class="card-header">Interesting Links</h4>
+            <div class="table-responsive">
+                <ul class="list-group list-group-flush list-group-horizontal">
+                    <li th:each="list : ${linklists}" class="list-group-item text-bg-light">
+                        <h5 class="card-title" th:text="${list.title}">[title]</h5>
+                        <h6 th:if="${list.subtitle != null}" class="card-subtitle" th:text="${list.subtitle}">[subtitle]</h6>
+                        <p class="card-text">
+                            <a th:each="link : ${list.links}" th:href="${link.path}" th:text="${link.label}" target="_blank" style="display:block;">[label]</a>
+                        </p>
+                    </li>
+                </ul>
             </div>
-            <a th:each="link : ${list.links}" th:href="${link.path}" th:text="${link.label}" target="_blank">[label]</a>
         </div>
+        
+        <div sec:authorize="isAuthenticated()" class="card">
+            <div class="card-header">You are logged in as</div>
+            <div class="card-body">
+                <form th:action="@{/logout}" method="POST">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered">
+                            <tr>
+                                <th scope="row">User</th>
+                                <td sec:authentication="name">&lt;username&gt;</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Role(s)</th>
+                                <td><div th:each="auth : ${#authentication.authorities}" th:text="${auth}">&lt;role&gt;</div></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log Out</button>
+                </form>
+            </div>
+        </div>
+
     </div>
     
-    <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST" class="graybox">
-        You are logged in as :
-        <table class="propertylist">
-            <tr>
-                <td>User</td>
-                <td sec:authentication="name">&lt;username&gt;</td>
-            </tr>
-            <tr>
-                <td>Role(s)</td>
-                <td><div th:each="auth : ${#authentication.authorities}" th:text="${auth}">&lt;role&gt;</div></td>
-            </tr>
-        </table>
-        <input type="submit" value="Log Out"/>
-    </form>
-    
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

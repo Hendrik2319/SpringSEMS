@@ -6,60 +6,74 @@
 <head> 
     <title>SEMS: All Adressses</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="/stylesheets/general.css">
-	<link rel="stylesheet" href="/stylesheets/table.css">
-    <style type="text/css">
-    </style>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+
+        <div class="card mb-3">
+            <div class="card-body">
+                You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+            </div>
+        </div>
     
-    <div class="loginstate">
-        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+        <div th:fragment="create_address_form" class="card text-bg-light mb-3">
+            <div class="card-header">Add Address</div>
+            <div class="card-body">
+                <form th:action="${config.endpoints.addresses.create}" method="POST">
+                    <label class="form-label" for="addr_street"  >street  :</label><input type="text" name="street"  id="addr_street"  class="form-control">
+                    <label class="form-label" for="addr_house"   >house   :</label><input type="text" name="house"   id="addr_house"   class="form-control">
+                    <label class="form-label" for="addr_town"    >town    :</label><input type="text" name="town"    id="addr_town"    class="form-control">
+                    <label class="form-label" for="addr_zipcode" >zipcode :</label><input type="text" name="zipcode" id="addr_zipcode" class="form-control">
+                    <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+                    <button type="reset"  class="btn btn-secondary">reset</button>
+                    <button type="submit" class="btn btn-primary"  >submit</button>
+                </form>
+            </div>
+        </div>
+    
+        <div class="card text-bg-light">
+            <div class="card-header">Addresses</div>
+            <div class="card-body">
+                <form th:fragment="table" th:action="${config.endpoints.addresses.modify}" method="POST">
+                    <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID         </th>
+                                    <th scope="col">street     </th>
+                                    <th scope="col">housenumber</th>
+                                    <th scope="col">town       </th>
+                                    <th scope="col">zipcode    </th>
+                                    <th scope="col">employees  </th>
+                                    <th scope="col">departments</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr th:each="addr : ${allAddresses}">
+                                    <td th:text="${addr.getID()         }">[ID          ]</td>
+                                    <td th:text="${addr.getStreet()     }">[Street      ]</td>
+                                    <td th:text="${addr.getHousenumber()}">[Housenumber ]</td>
+                                    <td th:text="${addr.getTown()       }">[Town        ]</td>
+                                    <td th:text="${addr.getZipcode()    }">[Zipcode     ]</td>
+                                    <td th:text="${addr.getEmployeesCount()  }">[EmployeesCount   ]</td>
+                                    <td th:text="${addr.getDepartmentsCount()}">[DepartmentsCount ]</td>
+                                    <td>
+                                        <button type="submit" name="delete" th:value="${addr.getID()}" class="btn btn-light">delete</button>
+                                        <button type="submit" name="update" th:value="${addr.getID()}" class="btn btn-light">modify</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-    <form th:fragment="create_address_form" id="create_address_form" th:action="${config.endpoints.addresses.create}" class="graybox" method="POST">
-        <label form="create_address_form">add address:</label><br/>
-        <label>street  : <input type="text" name="street" ></label><br/>
-        <label>house   : <input type="text" name="house"  ></label><br/>
-        <label>town    : <input type="text" name="town"   ></label><br/>
-        <label>zipcode : <input type="text" name="zipcode"></label><br/>
-        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-        <button type="reset">reset</button>
-        <button type="submit">submit</button>
-    </form>
-
-    <form th:fragment="table" th:action="${config.endpoints.addresses.modify}" method="POST">
-        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-        <table class="big">
-            <thead>
-                <tr>
-                    <th>ID         </th>
-                    <th>street     </th>
-                    <th>housenumber</th>
-                    <th>town       </th>
-                    <th>zipcode    </th>
-                    <th>employees  </th>
-                    <th>departments</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="addr : ${allAddresses}">
-                    <td th:text="${addr.getID()         }">[ID          ]</td>
-                    <td th:text="${addr.getStreet()     }">[Street      ]</td>
-                    <td th:text="${addr.getHousenumber()}">[Housenumber ]</td>
-                    <td th:text="${addr.getTown()       }">[Town        ]</td>
-                    <td th:text="${addr.getZipcode()    }">[Zipcode     ]</td>
-                    <td th:text="${addr.getEmployeesCount()  }">[EmployeesCount   ]</td>
-                    <td th:text="${addr.getDepartmentsCount()}">[DepartmentsCount ]</td>
-                    <td>
-                        <button type="submit" name="delete" th:value="${addr.getID()}">delete</button>
-                        <button type="submit" name="update" th:value="${addr.getID()}">modify</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    
+    <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
