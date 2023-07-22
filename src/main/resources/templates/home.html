@@ -13,16 +13,14 @@
 
         <div class="card text-bg-light mb-3">
             <h4 class="card-header">Interesting Links</h4>
-            <div class="table-responsive">
-                <ul class="list-group list-group-flush list-group-horizontal">
-                    <li th:each="list : ${linklists}" class="list-group-item text-bg-light">
-                        <h5 class="card-title" th:text="${list.title}">[title]</h5>
-                        <h6 th:if="${list.subtitle != null}" class="card-subtitle" th:text="${list.subtitle}">[subtitle]</h6>
-                        <p class="card-text">
-                            <a th:each="link : ${list.links}" th:href="${link.path}" th:text="${link.label}" target="_blank" style="display:block;">[label]</a>
-                        </p>
-                    </li>
-                </ul>
+            <div class="card-body row">
+                <div th:each="list : ${linklists}" class="col-sm mb-3">
+                    <h5 class="card-title" th:text="${list.title}">[title]</h5>
+                    <h6 th:if="${list.subtitle != null}" class="card-subtitle" th:text="${list.subtitle}">[subtitle]</h6>
+                    <p class="card-text">
+                        <a th:each="link : ${list.links}" th:href="${link.path}" th:text="${link.label}" target="_blank" style="display:block;">[label]</a>
+                    </p>
+                </div>
             </div>
         </div>
         

@@ -21,10 +21,10 @@
             <div class="card-header">Add Address</div>
             <div class="card-body">
                 <form th:action="${config.endpoints.addresses.create}" method="POST">
-                    <label class="form-label" for="addr_street"  >street  :</label><input type="text" name="street"  id="addr_street"  class="form-control">
-                    <label class="form-label" for="addr_house"   >house   :</label><input type="text" name="house"   id="addr_house"   class="form-control">
-                    <label class="form-label" for="addr_town"    >town    :</label><input type="text" name="town"    id="addr_town"    class="form-control">
-                    <label class="form-label" for="addr_zipcode" >zipcode :</label><input type="text" name="zipcode" id="addr_zipcode" class="form-control">
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="addr_street"  >street  </label><div class="col-sm-10"><input type="text" name="street"  id="addr_street"  class="form-control"></div></div>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="addr_house"   >house   </label><div class="col-sm-10"><input type="text" name="house"   id="addr_house"   class="form-control"></div></div>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="addr_town"    >town    </label><div class="col-sm-10"><input type="text" name="town"    id="addr_town"    class="form-control"></div></div>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="addr_zipcode" >zipcode </label><div class="col-sm-10"><input type="text" name="zipcode" id="addr_zipcode" class="form-control"></div></div>
                     <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                     <button type="reset"  class="btn btn-secondary">reset</button>
                     <button type="submit" class="btn btn-primary"  >submit</button>

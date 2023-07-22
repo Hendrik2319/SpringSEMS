@@ -21,12 +21,15 @@
             <div class="card-header">Add Department</div>
             <div class="card-body">
                 <form th:action="${config.endpoints.departments.create}" method="POST">
-                    <label class="form-label" for="dep_name">name    :</label><input type="text" name="name" id="dep_name" class="form-control">
-                    <label class="form-label" for="dep_addr">address :</label>
-                    <select id="dep_addr" name="addr_id" class="form-select">
-                        <option value="-1" >-- not assigned --</option>
-                        <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
-                    </select>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="dep_name">name    </label><div class="col-sm-10"><input type="text" name="name" id="dep_name" class="form-control"></div></div>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="dep_addr">address </label>
+                        <div class="col-sm-10">
+                            <select id="dep_addr" name="addr_id" class="form-select">
+                                <option value="-1" >-- not assigned --</option>
+                                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}"></option>
+                            </select>
+                        </div>
+                    </div>
                     <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
                     <button type="reset"  class="btn btn-secondary">reset</button>
                     <button type="submit" class="btn btn-primary"  >submit</button>
