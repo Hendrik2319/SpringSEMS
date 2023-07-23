@@ -5,51 +5,57 @@
 <head>
     <title>SEMS: LDAP Inspection</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<link rel="stylesheet" href="/stylesheets/general.css">
-	<link rel="stylesheet" href="/stylesheets/table.css">
-    <style type="text/css">
-        th { text-align: left; }
-        td { vertical-align: top; }
-	</style>
+    <link rel="stylesheet" href="../static/stylesheets/bootstrap.min.css" th:href="@{/stylesheets/bootstrap.min.css}">
 </head>
 <body>
+    <div class="container">
 
-    <ul>
-        <li th:each="str : ${strList}" th:text="${str}"></li>
-    </ul>
+        <div class="card mb-3">
+            <h4 class="card-header" th:text="${strListLabel}">{strListLabel}</h4>
+            <ul class="list-group list-group-flush">
+                <li th:each="str : ${strList}" th:text="${str}" class="list-group-item">{str}</li>
+            </ul>
+        </div>
 
-    <table class="big">
-        <thead>
-            <tr>
-                <th th:each="attr : ${attributes}" th:text="${attr}"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="genAttrMap : ${allData}">
-                <td th:each="attr : ${attributes}"
-                    th:with="genAttr = ${genAttrMap.get(attr)}">
-                    <div th:if="${genAttr.isNull()}" title="<null>">---</div>
-                    <div th:if="${!genAttr.isNull() && genAttr.size()==0}">&lt;empty&gt;</div>
-                    <div th:if="${!genAttr.isNull() && genAttr.size()==1}"
-                        th:with="genVal = ${genAttr.get()}">
-                        <span th:title="${genVal.getClassStr()}" th:text="'[' + ${genVal.getClassKey()} + ']'">[C]</span>
-                        <span th:if="${!genVal.isByteArr()}" th:text="${genVal.getValueStr()       }">[value]</span>
-                        <span th:if="${ genVal.isByteArr()}" th:text="${genVal.getByteArrAsString()}">[value]</span>
-                    </div>
-                    <div th:if="${!genAttr.isNull() && genAttr.size()>1}"
-                        th:with="valList = ${genAttr.getAll()}">
-                        <div th:each="genVal, loopStat : ${valList}">
-                            <span th:text="'(' + ${loopStat.index+1} + ')'">[#]</span>
-                            <span th:title="${genVal.getClassStr()}" th:text="'[' + ${genVal.getClassKey()} + ']'">[C]</span>
-                            <span th:if="${!genVal.isByteArr()}" th:text="${genVal.getValueStr()       }">[value]</span>
-                            <span th:if="${ genVal.isByteArr()}" th:text="${genVal.getByteArrAsString()}">[value]</span>
-                        </div>
-                    </div>
+        <div class="card">
+            <h4 class="card-header">All Data</h4>
+            <div class="card-body table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th th:each="attr : ${attributes}" th:text="${attr}" scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr th:each="genAttrMap : ${allData}">
+                            <td th:each="attr : ${attributes}"
+                                th:with="genAttr = ${genAttrMap.get(attr)}">
+                                <div th:if="${genAttr.isNull()}" title="<null>">---</div>
+                                <div th:if="${!genAttr.isNull() && genAttr.size()==0}">&lt;empty&gt;</div>
+                                <div th:if="${!genAttr.isNull() && genAttr.size()==1}"
+                                    th:with="genVal = ${genAttr.get()}" class="text-nowrap">
+                                    <span th:title="${genVal.getClassStr()}" th:text="'[' + ${genVal.getClassKey()} + ']'">[C]</span>
+                                    <span th:if="${!genVal.isByteArr()}" th:text="${genVal.getValueStr()       }">{value}</span>
+                                    <span th:if="${ genVal.isByteArr()}" th:text="${genVal.getByteArrAsString()}">{value}</span>
+                                </div>
+                                <div th:if="${!genAttr.isNull() && genAttr.size()>1}"
+                                    th:with="valList = ${genAttr.getAll()}">
+                                    <div th:each="genVal, loopStat : ${valList}" class="text-nowrap">
+                                        <span th:text="'(' + ${loopStat.index+1} + ')'">(#)</span>
+                                        <span th:title="${genVal.getClassStr()}" th:text="'[' + ${genVal.getClassKey()} + ']'">[C]</span>
+                                        <span th:if="${!genVal.isByteArr()}" th:text="${genVal.getValueStr()       }">{value}</span>
+                                        <span th:if="${ genVal.isByteArr()}" th:text="${genVal.getByteArrAsString()}">{value}</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
 
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

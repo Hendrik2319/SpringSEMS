@@ -34,6 +34,7 @@ public class LdapInspectController {
 	public String showLdapView(Model model) {
 		model.addAttribute("attributes", attributes);
 		model.addAttribute("strList", getNames());
+		model.addAttribute("strListLabel", "Names");
 		model.addAttribute("allData", getAllData());
 		return "ldap_view";
 	}
