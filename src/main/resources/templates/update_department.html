@@ -6,31 +6,36 @@
 <head> 
     <title>SEMS: Update Department</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="/stylesheets/general.css">
-    <style type="text/css">
-    </style>
+    <link rel="stylesheet" href="../static/stylesheets/bootstrap.min.css" th:href="@{/stylesheets/bootstrap.min.css}">
 </head>
 <body>
+    <div class="container">
+        
+        <div th:replace="~{ __part_logged_in_as :: logged_in_as }"/>
     
-    <div class="loginstate">
-        You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
+        <div class="card text-bg-light">
+            <h4 class="card-header">Update Department</h4>
+            <div class="card-body">
+                <form th:action="${config.endpoints.departments.update}" method="POST">
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="id"  >ID     </label><div class="col-sm-10"><input type="text" name="id"   id="id"   class="form-control" th:value="${department.getID()  }" readonly></div></div>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="name">name   </label><div class="col-sm-10"><input type="text" name="name" id="name" class="form-control" th:value="${department.getName()}"         ></div></div>
+                    <div class="row mb-3"><label class="col-sm-2 col-form-label" for="addr">address</label>
+                        <div class="col-sm-10">
+                            <select id="addr" name="addr_id" class="form-select">
+                                <option value="-1" th:selected="${!department.hasAddress()}">-- not assigned --</option>
+                                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}" th:selected="${!department.hasAddress()} ? false : ${department.getAddress().getID() == addr.getID()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
+                    <button type="reset"  class="btn btn-secondary">reset</button>
+                    <button type="submit" class="btn btn-primary"  >submit</button>
+                </form>
+            </div>
+        </div>
+            
     </div>
-    
-    <form id="form" th:action="${config.endpoints.departments.update}" class="graybox" method="POST">
-        <label form="form">update department:</label><br/>
-        <label>ID      : <input type="text" name="id"   th:value="${department.getID()  }" readonly></label><br/>
-        <label>name    : <input type="text" name="name" th:value="${department.getName()}" ></label><br/>
-        <label>address :
-            <select name="addr_id">
-                <option value="-1" th:selected="${!department.hasAddress()}">-- not assigned --</option>
-                <option th:each="addr : ${allAddresses}" th:value="${addr.getID()}" th:text="${addr.toLabel()}" th:selected="${!department.hasAddress()} ? false : ${department.getAddress().getID() == addr.getID()}"></option>
-            </select>
-        </label>
-        <br/>
-        <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
-        <button type="reset">reset</button>
-        <button type="submit">submit</button>
-    </form>
 
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
