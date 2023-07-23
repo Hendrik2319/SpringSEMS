@@ -53,7 +53,7 @@ public class DepartmentController extends UserInterface.Helper {
 			//System.out.printf("Department[ID:%d]* is assigned to %d employees.%n", id, employeesUsingCount);
 
 			if (employeesUsingCount!=0) {
-				return showMessage(model, redirectTarget,
+				return showMessage(model, redirectTarget, Config.MessageType.WARNING,
 					"Can't delete department.",
 					String.format("Department is assigned to %d employee(s).", employeesUsingCount),
 					"You should assign different departments to the relevant employee(s)."

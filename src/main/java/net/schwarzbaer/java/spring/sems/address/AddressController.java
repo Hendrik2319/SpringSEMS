@@ -66,7 +66,7 @@ public class AddressController extends UserInterface.Helper {
 					assignmentsMsg = String.format("Address is assigned to %d employee(s).", employeesUsingCount);
 					relevantGroups = "employee(s)";
 				}
-				return showMessage(model, redirectTarget,
+				return showMessage(model, redirectTarget, Config.MessageType.WARNING,
 					"Can't delete address.",
 					assignmentsMsg,
 					String.format("You should assign different addresses to the relevant %s.", relevantGroups)

@@ -5,24 +5,32 @@
 <head> 
     <title>SEMS: Message</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="/stylesheets/general.css">
-    <style type="text/css">
-        .box {
-            border: 1px solid gray;
-            border-radius: 10px;
-            padding: 15px;
-            background: #f7f7f7;
-            max-width: 600px
-        }
-    </style>
+    <link rel="stylesheet" href="../static/stylesheets/bootstrap.min.css" th:href="@{/stylesheets/bootstrap.min.css}">
 </head>
 <body>
+    <div class="container">
 
-    <form class="box" th:action="${redirectTarget}">
-        <h3 th:text="${title}">{Title}</h3>
-        <p th:each="p : ${paragraphs}" th:text="${p}"></p>
-        <button type="submit">OK</button>
-    </form>
-    
+        <div class="card text-bg-light"
+            th:with="
+                cardColor = ${messageType == config.messageType.ERROR}
+                                ? 'text-bg-danger'
+                                : (${messageType == config.messageType.WARNING}
+                                    ? 'text-bg-warning'
+                                    : 'text-bg-light')
+            "
+            th:class="'card ' + ${cardColor}"
+            >
+            <h4 class="card-header" th:text="${title}">{title}</h4>
+            <div class="card-body">
+                <form th:action="${redirectTarget}">
+                    <p th:each="p : ${paragraphs}" th:text="${p}" class="card-text">{paragraph}</p>
+                    <button type="submit" class="btn btn-primary">OK</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

@@ -75,6 +75,13 @@ public class UserInterface {
 			public static final String LOGIN             = "login";
 			public static final String USERINFO          = "userinfo";
 		}
+
+		public final MessageType messageType = new MessageType();
+		public static class MessageType {
+			public static final String ERROR   = "ERROR";
+			public static final String WARNING = "WARNING";
+			public static final String INFO    = "INFO";
+		}
 	}
 
 	public static class Helper {
@@ -85,11 +92,12 @@ public class UserInterface {
 			return "redirect:"+redirectTarget;
 		}
 
-		public static String showMessage(Model model, String  redirectTarget, String title, String... paragraphs) {
-			// TODO: message types -->  model parameter
+		public static String showMessage(Model model, String  redirectTarget, String messageType, String title, String... paragraphs) {
 			model.addAttribute("redirectTarget", redirectTarget);
+			model.addAttribute("messageType", messageType);
 			model.addAttribute("title", title);
 			model.addAttribute("paragraphs", paragraphs);
+			model.addAttribute("config", Helper.config);
 			return Config.Views.MESSAGE;
 		}
 	}
