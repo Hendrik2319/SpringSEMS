@@ -86,6 +86,7 @@ public class UserInterface {
 		}
 
 		public static String showMessage(Model model, String  redirectTarget, String title, String... paragraphs) {
+			// TODO: message types -->  model parameter
 			model.addAttribute("redirectTarget", redirectTarget);
 			model.addAttribute("title", title);
 			model.addAttribute("paragraphs", paragraphs);

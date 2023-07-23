@@ -6,16 +6,12 @@
 <head> 
     <title>SEMS: Edit Database</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/stylesheets/bootstrap.min.css" th:href="@{/stylesheets/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
 
-        <div class="card mb-3">
-            <div class="card-body">
-                You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
-            </div>
-        </div>
+        <div th:replace="~{ __part_logged_in_as :: logged_in_as }"/>
 
         <div th:replace="~{ ${config.views.ALL_ADDRESSES  } :: create_address_form    }"/>
         <div th:replace="~{ ${config.views.ALL_DEPARTMENTS} :: create_department_form }"/>
@@ -38,6 +34,6 @@
 
     </div>
     
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

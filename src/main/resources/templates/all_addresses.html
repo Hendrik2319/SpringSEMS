@@ -6,19 +6,15 @@
 <head> 
     <title>SEMS: All Adressses</title> 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/stylesheets/bootstrap.min.css" th:href="@{/stylesheets/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
 
-        <div class="card mb-3">
-            <div class="card-body">
-                You are logged in as : <span th:remove="tag" sec:authentication="name">&lt;username&gt;</span>
-            </div>
-        </div>
+        <div th:replace="~{ __part_logged_in_as :: logged_in_as }"/>
     
         <div th:fragment="create_address_form" class="card text-bg-light mb-3">
-            <div class="card-header">Add Address</div>
+            <h4 class="card-header">Add Address</h4>
             <div class="card-body">
                 <form th:action="${config.endpoints.addresses.create}" method="POST">
                     <div class="row mb-3"><label class="col-sm-2 col-form-label" for="addr_street"  >street  </label><div class="col-sm-10"><input type="text" name="street"  id="addr_street"  class="form-control"></div></div>
@@ -33,7 +29,7 @@
         </div>
     
         <div class="card text-bg-light">
-            <div class="card-header">Addresses</div>
+            <h4 class="card-header">Addresses</h4>
             <div class="card-body">
                 <form th:fragment="table" th:action="${config.endpoints.addresses.modify}" method="POST">
                     <input type="hidden" name="redirect_to" th:value="${redirectTarget}">
@@ -74,6 +70,6 @@
 
     </div>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

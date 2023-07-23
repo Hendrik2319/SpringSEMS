@@ -6,7 +6,7 @@
 <head>
     <title>SEMS: Login</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/stylesheets/bootstrap.min.css" th:href="@{/stylesheets/bootstrap.min.css}">
 </head>
 <body>
     <div class="container">
@@ -24,6 +24,7 @@
         </div>
     
         <div class="card text-bg-light">
+            <h4 class="card-header">Login</h4>
             <div class="card-body">
                 <form th:action="@{/login}" method="POST">
                     <div class="row mb-3"><label class="col-sm-2 col-form-label" for="username">User Name </label><div class="col-sm-10"><input type="text"     name="username" id="username" class="form-control"/></div></div>
@@ -35,6 +36,6 @@
     
     </div>
     
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
